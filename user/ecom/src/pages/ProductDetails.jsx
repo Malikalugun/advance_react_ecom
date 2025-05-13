@@ -3,8 +3,10 @@ import NavMenuDesktop from "../components/common/NavMenuDesktop";
 import NavMenuMobile from "../components/common/NavMenuMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
 import FooterMobile from "../components/common/FooterMobile";
+import ProductsDetails from "../components/ProductsDetails/ProductsDetails";
+import SuggestedProducts from "../components/ProductsDetails/SuggestedProducts";
 
-export class PurchesPage extends Component {
+export class ProductDetails extends Component {
   componentDidMount() {
     window.scroll(0, 0);
   }
@@ -17,7 +19,8 @@ export class PurchesPage extends Component {
         <div className="Mobile">
           <NavMenuMobile />
         </div>
-        <productDetailes />
+        <ProductsDetails />
+        <SuggestedProducts />
         <div className="Desktop">
           <FooterDesktop />
         </div>
@@ -29,4 +32,4 @@ export class PurchesPage extends Component {
   }
 }
 
-export default PurchesPage;
+export default ProductDetails;
