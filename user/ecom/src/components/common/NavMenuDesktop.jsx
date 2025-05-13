@@ -2,7 +2,37 @@ import React, { Component, Fragment } from "react";
 import { Container, Navbar, Row, Col, Button } from "react-bootstrap";
 import Logo from "../../assets/images/easyshop.png";
 import { Link } from "react-router-dom";
+// import MegaMenuMobile from "../home/MegaMenuMobile";
+import MegaMenuAll from "../home/MegaMenuAll";
 class NavMenuDesktop extends Component {
+  constructor() {
+    super();
+    this.state = {
+      SideNavState: "sideNavClose",
+      ContentOverState: "ContentOverlayClose",
+    };
+  }
+  MenuBarClickHandeler = () => {
+    this.SideNavOpenClose();
+  };
+  ContentOverlayClickHandler = () => {
+    this.SideNavOpenClose();
+  };
+  SideNavOpenClose = () => {
+    let SideNavState = this.state.SideNavState;
+    let ContentOverState = this.state.ContentOverState;
+    if (SideNavState === "sideNavOpen") {
+      this.setState({
+        SideNavState: "sideNavClose",
+        ContentOverState: "ContentOverlayClose",
+      });
+    } else {
+      this.setState({
+        SideNavState: "sideNavOpen",
+        ContentOverState: "ContentOverlayOpen",
+      });
+    }
+  };
   render() {
     return (
       <Fragment>
@@ -11,6 +41,12 @@ class NavMenuDesktop extends Component {
             <Container fluid className="shadow-sm bg-white p-2 mb-0">
               <Row className="w-100 align-items-center">
                 <Col lg={4} md={4} sm={12} xs={12}>
+                  <Button className="btn">
+                    <i
+                      className="fa fa-bars"
+                      onClick={this.MenuBarClickHandeler}
+                    ></i>
+                  </Button>
                   <Link to="/">
                     <img src={Logo} alt="logo image" className="nav-logo" />
                   </Link>
@@ -34,6 +70,13 @@ class NavMenuDesktop extends Component {
                 </Col>
                 <Col className="p-1 mt-1" lg={4} md={4} sm={12} xs={12}>
                   <Link to="#" className="btn ">
+                    <i className="fa h4 fa-heart">
+                      <sup>
+                        <span className="badge text-white bg-danger">3</span>
+                      </sup>
+                    </i>
+                  </Link>
+                  <Link to="#" className="btn ">
                     <i className="fa h4 fa-bell">
                       <sup>
                         <span className="badge text-white bg-danger">5</span>
@@ -44,7 +87,7 @@ class NavMenuDesktop extends Component {
                     <i className="fa fa-mobile-alt"></i>
                   </a>
 
-                  <Link to="#" className="h4 btn">
+                  <Link to="/login" className="h4 btn">
                     Login
                   </Link>
                   <Button className="cart-btn">
@@ -55,6 +98,14 @@ class NavMenuDesktop extends Component {
             </Container>
           </Navbar>
         </div>
+        <div className={this.state.SideNavState}>
+          <MegaMenuAll />
+        </div>
+
+        <div
+          onClick={this.ContentOverlayClickHandler}
+          className={this.state.ContentOverState}
+        ></div>
       </Fragment>
     );
   }
