@@ -9,6 +9,7 @@ import RefundPage from "../pages/RefundPage";
 import PrivacyPage from "../pages/PrivacyPage";
 import ProductDetails from "../pages/ProductDetails";
 import NotificationPage from "../pages/NotificationPage";
+import FavouritePage from "../pages/FavouritePage";
 class AppRoute extends Component {
   render() {
     return (
@@ -22,6 +23,7 @@ class AppRoute extends Component {
           <Route path="/refund" element={<RefundPage />} />
           <Route path="/productsdetails" element={<ProductDetails />} />
           <Route path="/notification-page" element={<NotificationPage />} />
+          <Route path="/favourite" element={<FavouritePage />} />
         </Routes>
       </Fragment>
     );

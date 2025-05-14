@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Container, Navbar, Row, Col, Button } from "react-bootstrap";
 import Logo from "../../assets/images/easyshop.png";
+import Menu from "../../assets/images/menu.png"
 import { Link } from "react-router-dom";
 // import MegaMenuMobile from "../home/MegaMenuMobile";
 import MegaMenuAll from "../home/MegaMenuAll";
@@ -41,12 +42,8 @@ class NavMenuDesktop extends Component {
             <Container fluid className="shadow-sm bg-white p-2 mb-0">
               <Row className="w-100 align-items-center">
                 <Col lg={4} md={4} sm={12} xs={12}>
-                  <Button className="btn">
-                    <i
-                      className="fa fa-bars"
-                      onClick={this.MenuBarClickHandeler}
-                    ></i>
-                  </Button>
+
+                  <img src={Menu} alt="bar menu" className="bar-img" onClick={this.MenuBarClickHandeler}/>
                   <Link to="/">
                     <img src={Logo} alt="logo image" className="nav-logo" />
                   </Link>
@@ -69,7 +66,7 @@ class NavMenuDesktop extends Component {
                   </div>
                 </Col>
                 <Col className="p-1 mt-1" lg={4} md={4} sm={12} xs={12}>
-                  <Link to="#" className="btn ">
+                  <Link to="/favourite" className="btn ">
                     <i className="fa h4 fa-heart">
                       <sup>
                         <span className="badge text-white bg-danger">3</span>
