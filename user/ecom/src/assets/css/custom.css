@@ -13,8 +13,9 @@
 @import "megaMenuAll.css";
 @import "onboard.css";
 @import "common.css";
-@import "notification";
-@import "productDetails";
+@import "notification.css";
+@import "productDetails.css";
+@import "cartList.css";
 body {
   background-color: #ffffff;
 }

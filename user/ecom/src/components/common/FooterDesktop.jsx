@@ -70,6 +70,9 @@ class FooterDesktop extends Component {
                 <a href="#">
                   <img src={Apple} alt="aimg" className="mt-2" />
                 </a>
+                <br></br>
+                Change Your Language <br></br>
+                <div id="google_translate_element"></div>
               </Col>
             </Row>
           </Container>
