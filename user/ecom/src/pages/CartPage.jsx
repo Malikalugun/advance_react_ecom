@@ -19,6 +19,7 @@ export class CartPage extends Component {
           <NavMenuMobile />
         </div>
         <Cart />
+
         <div className="Desktop">
           <FooterDesktop />
         </div>

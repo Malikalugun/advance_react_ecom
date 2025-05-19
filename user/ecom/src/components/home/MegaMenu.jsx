@@ -9,22 +9,43 @@ class MegaMenu extends Component {
   componentDidMount() {
     this.MegaMenu();
   }
+  // MegaMenu() {
+  //   var acc = document.getElementsByClassName("accordion");
+  //   var accNum = acc.length;
+  //   var i;
+  //   for (i = 0; i < accNum; i++) {
+  //     acc[i].addEventListener("click", function () {
+  //       this.classList.toggle("active");
+  //       var panel = this.nextElementSibling;
+  //       if (panel.style.maxHeight) {
+  //         panel.style.maxHeight = null;
+  //       } else {
+  //         panel.style.maxHeight = panel.scrollHeight + "px";
+  //       }
+  //     });
+  //   }
+  // }
   MegaMenu() {
-    var acc = document.getElementsByClassName("accordion");
-    var accNum = acc.length;
-    var i;
-    for (i = 0; i < accNum; i++) {
-      acc[i].addEventListener("click", function () {
-        this.classList.toggle("active");
-        var panel = this.nextElementSibling;
-        if (panel.style.maxHeight) {
-          panel.style.maxHeight = null;
-        } else {
-          panel.style.maxHeight = panel.scrollHeight + "px";
-        }
-      });
-    }
+    setTimeout(() => {
+      const acc = document.getElementsByClassName("accordion");
+      const accNum = acc.length;
+
+      for (let i = 0; i < accNum; i++) {
+        // Avoid duplicate event listeners
+        acc[i].onclick = function () {
+          this.classList.toggle("active");
+          const panel = this.nextElementSibling;
+
+          if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+          }
+        };
+      }
+    }, 100); // Wait for DOM to be ready
   }
+
   render() {
     return (
       <div className="accordionMenuDiv">

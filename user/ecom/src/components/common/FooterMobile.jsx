@@ -33,7 +33,7 @@ class FooterMobile extends Component {
 
               <Col lg={3} md={3} sm={6} xs={12}>
                 <h5 className="footer-menu-title">The Company</h5>
-                <Link to="/" className="footer-link">
+                <Link to="/about" className="footer-link">
                   About us
                 </Link>
                 <br></br>
@@ -41,8 +41,8 @@ class FooterMobile extends Component {
                   Company Profile
                 </Link>
                 <br></br>
-                <Link to="/" className="footer-link">
-                  Contact Us us
+                <Link to="/contact" className="footer-link">
+                  Contact Us
                 </Link>
                 <br></br>
               </Col>
