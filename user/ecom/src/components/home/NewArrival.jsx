@@ -1,12 +1,17 @@
 import React, { Component, Fragment } from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Card } from "react-bootstrap";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import AppURL from "../../api/AppURL";
+import axios from "axios";
 
 class NewArrival extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      ProductData: [],
+    };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
   }
@@ -16,7 +21,45 @@ class NewArrival extends Component {
   previous() {
     this.slider.slickPrev();
   }
+  componentDidMount() {
+    axios
+      .get(AppURL.ProductListByRemark("New"))
+      .then((response) => {
+        this.setState({ ProductData: response.data });
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
+  }
   render() {
+    const NewList = this.state.ProductData;
+    const MyView = NewList.map((newlist, i) => {
+      if (newlist.special_price === "na") {
+        return (
+          <div>
+            <Card className="image-box card">
+              <img src={newlist.image} alt="" className="center" />
+              <Card.Body>
+                <p className="product-name-on-card">{newlist.title}</p>
+                <p className="product-price-on-card">Price: ₹{newlist.price}</p>
+              </Card.Body>
+            </Card>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <Card className="image-box card">
+              <img src={newlist.image} alt="" className="center" />
+              <Card.Body>
+                <p className="product-name-on-card">{newlist.title}</p>
+                <p className="product-price-on-card">Price: ₹{newlist.price}</p>
+              </Card.Body>
+            </Card>
+          </div>
+        );
+      }
+    });
     var settings = {
       dots: false,
       infinite: true,
@@ -73,66 +116,7 @@ class NewArrival extends Component {
           <Row>
             <div className="slider-container">
               <Slider ref={(c) => (this.slider = c)} {...settings}>
-                <div>
-                  <Card className="image-box card">
-                    <img
-                      src="https://m.media-amazon.com/images/I/51ru8kBdYHL._SX300_SY300_QL70_FMwebp_.jpg"
-                      alt=""
-                      className="center"
-                    />
-                    <Card.Body>
-                      <p className="product-name-on-card">
-                        Fire-Boltt Ninja Call Pro Max Smart Watch 2.01
-                      </p>
-                      <p className="product-price-on-card">Price: ₹9599</p>
-                    </Card.Body>
-                  </Card>
-                </div>
-                <div>
-                  <Card className="image-box card">
-                    <img
-                      src="https://m.media-amazon.com/images/I/71lT0+GeRxL._SX679_.jpg"
-                      alt=""
-                      className="center"
-                    />
-                    <Card.Body>
-                      <p className="product-name-on-card">
-                        Fire-Boltt Ninja Call Pro Max Smart Watch 2.01
-                      </p>
-                      <p className="product-price-on-card">Price: ₹9599</p>
-                    </Card.Body>
-                  </Card>
-                </div>
-                <div>
-                  <Card className="image-box card">
-                    <img
-                      src="https://m.media-amazon.com/images/I/41iRj4+m8oL._SY300_SX300_.jpg"
-                      alt=""
-                      className="center"
-                    />
-                    <Card.Body>
-                      <p className="product-name-on-card">
-                        Fire-Boltt Ninja Call Pro Max Smart Watch 2.01
-                      </p>
-                      <p className="product-price-on-card">Price: ₹9599</p>
-                    </Card.Body>
-                  </Card>
-                </div>
-                <div>
-                  <Card className="image-box card">
-                    <img
-                      src="https://m.media-amazon.com/images/I/41H7B5bi4NL._SX300_SY300_QL70_FMwebp_.jpg"
-                      alt=""
-                      className="center"
-                    />
-                    <Card.Body>
-                      <p className="product-name-on-card">
-                        Fire-Boltt Ninja Call Pro Max Smart Watch 2.01
-                      </p>
-                      <p className="product-price-on-card">Price: ₹9599</p>
-                    </Card.Body>
-                  </Card>
-                </div>
+                {MyView}
               </Slider>
             </div>
           </Row>

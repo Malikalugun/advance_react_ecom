@@ -3,6 +3,7 @@ import NavMenuDesktop from "../components/common/NavMenuDesktop";
 import NavMenuMobile from "../components/common/NavMenuMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
 import FooterMobile from "../components/common/FooterMobile";
+import Purches from "../components/others/Purches";
 
 export class PurchesPage extends Component {
   componentDidMount() {
@@ -17,7 +18,7 @@ export class PurchesPage extends Component {
         <div className="Mobile">
           <NavMenuMobile />
         </div>
-        <productDetailes />
+        <Purches />
         <div className="Desktop">
           <FooterDesktop />
         </div>

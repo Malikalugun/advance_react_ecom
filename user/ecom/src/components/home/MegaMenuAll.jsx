@@ -1,74 +1,64 @@
+import axios from "axios";
 import React, { Component } from "react";
+import AppURL from "../../api/AppURL";
 
 class MegaMenuAll extends Component {
   constructor() {
     super();
-    this.MegaMenu = this.MegaMenu.bind(this);
+    this.state = {
+      MenuData: [],
+    };
   }
   componentDidMount() {
-    this.MegaMenu();
+    axios
+      .get(AppURL.AllCategoryDetails)
+      .then((response) => {
+        this.setState({ MenuData: response.data });
+      })
+      .catch((error) => {});
   }
-  // MegaMenu() {
-  //   var acc = document.getElementsByClassName("accordionAll");
-  //   var accNum = acc.length;
-  //   var i;
-  //   for (i = 0; i < accNum; i++) {
-  //     acc[i].addEventListener("click", function () {
-  //       this.classList.toggle("active");
-  //       var panel = this.nextElementSibling;
-  //       if (panel.style.maxHeight) {
-  //         panel.style.maxHeight = null;
-  //       } else {
-  //         panel.style.maxHeight = panel.scrollHeight + "px";
-  //       }
-  //     });
-  //   }
-  // }
-  MegaMenu() {
-    setTimeout(() => {
-      const acc = document.getElementsByClassName("accordionAll");
-      const accNum = acc.length;
-      for (let i = 0; i < accNum; i++) {
-        acc[i].onclick = function () {
-          this.classList.toggle("active");
-          const panel = this.nextElementSibling;
+  MegaMenuItemClick = (event) => {
+    event.target.classList.toggle("active");
+    var panel = event.target.nextElementSibling;
 
-          if (panel.style.maxHeight) {
-            panel.style.maxHeight = null;
-          } else {
-            panel.style.maxHeight = panel.scrollHeight + "px";
-          }
-        };
-      }
-    }, 100);
-  }
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  };
   render() {
-    return (
-      <div className="accordionMenuDivAll">
-        <div className="accordionMenuDivInsideAll">
-          <button className="accordionAll">
+    const CatList = this.state.MenuData;
+    const MyView = CatList.map((CatList, i) => {
+      return (
+        <div key={i.toString()}>
+          <button className="accordionAll" onClick={this.MegaMenuItemClick}>
             <img
               className="accordionMenuIconAll"
-              src="https://cdn-icons-png.flaticon.com/128/3342/3342137.png"
+              src={CatList.category_image}
               alt=""
             />
-            &nbsp; Man's Clothing
+            &nbsp; {CatList.category_name}
           </button>
           <div className="panelAll">
             <ul>
-              <li>
-                <a href="#" className="accordionItemAll">
-                  Man's Tshirt
-                </a>
-              </li>
-              <li>
-                <a href="#" className="accordionItemAll">
-                  Man's Tshirt
-                </a>
-              </li>
+              {CatList.subcategory_name.map((SubList, i) => {
+                return (
+                  <li>
+                    <a href="#" className="accordionItemAll">
+                      {SubList.subcategory_name}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
+      );
+    });
+    return (
+      <div className="accordionMenuDivAll">
+        <div className="accordionMenuDivInsideAll">{MyView}</div>
       </div>
     );
   }
