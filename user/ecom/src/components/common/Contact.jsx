@@ -4,6 +4,7 @@ import validation from "../../validation/validation";
 import axios from "axios";
 import AppURL from "../../api/AppURL";
 import { ToastContainer, toast } from "react-toastify";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 
 export class Contact extends Component {
   constructor() {
@@ -69,6 +70,14 @@ export class Contact extends Component {
     return (
       <Fragment>
         <Container>
+          <div className="breadbody">
+            <Breadcrumb>
+              <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+              <Breadcrumb.Item active className="breadcrumbactive">
+                Contact Us
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
           <Row className="p-2">
             <Col
               className="shadow bg-white mt-2"

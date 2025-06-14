@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Container, Navbar, Row, Col, Form, Button } from "react-bootstrap";
 import Login from "../../assets/images/login.png";
+import { Link } from "react-router-dom";
 export class UserLogin extends Component {
   render() {
     return (
@@ -24,17 +25,35 @@ export class UserLogin extends Component {
                 >
                   <Form className="onboardForm">
                     <h4 className="section-title-login">User Signin</h4>
-                    <h6 className="section-sub-title">
-                      Please Enyter Your Mobile
-                    </h6>
                     <input
-                      type="text"
+                      type="email"
                       className="form-control m-2"
-                      placeholder="Enter Moble No."
+                      placeholder="Enter Your Email"
+                    />
+                    <input
+                      type="password"
+                      className="form-control m-2"
+                      placeholder="Enter Your Password"
                     />
                     <Button className="btn btn-block m-2 site-btn-login">
-                      Next
+                      Login
                     </Button>
+                    <br></br>
+                    <br></br>
+                    <hr />
+                    <p>
+                      <b>
+                        {" "}
+                        Forget my password?{" "}
+                        <Link to="/forget">Forget Password</Link>
+                      </b>
+                    </p>
+                    <p>
+                      <b>
+                        Don't have an account ?{" "}
+                        <Link to="/register">Register</Link>
+                      </b>
+                    </p>
                   </Form>
                 </Col>
                 <Col md={6} lg={6} sm={12} xs={12} className="p-0 m-0 Desktop">

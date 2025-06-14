@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
-import Slider1 from "../../assets/images/slider1.jpg";
-import Slider2 from "../../assets/images/slider2.jpg";
-import Slider3 from "../../assets/images/slider3.jpg";
 class HomeSlide extends Component {
   render() {
     var settings = {
@@ -42,19 +39,18 @@ class HomeSlide extends Component {
         },
       ],
     };
+    const SliderData = this.props.data;
+    const MyView = SliderData.map((SliderList, i) => {
+      return (
+        <div key={i.toString()}>
+          <img src={SliderList.slider_image} className="slider-img" />
+        </div>
+      );
+    });
+
     return (
       <div>
-        <Slider {...settings}>
-          <div>
-            <img src={Slider1} className="slider-img" />
-          </div>
-          <div>
-            <img src={Slider2} className="slider-img" />
-          </div>
-          <div>
-            <img src={Slider3} className="slider-img" />
-          </div>
-        </Slider>
+        <Slider {...settings}>{MyView}</Slider>
       </div>
     );
   }

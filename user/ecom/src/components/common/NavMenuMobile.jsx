@@ -49,12 +49,12 @@ class NavMenuMobile extends Component {
                   ></i>
                 </Button>
 
-                <Link to="/">
+                <Link to="/" className="text-link">
                   {" "}
                   <img className="nav-logo" src={Logo} />
                 </Link>
 
-                <Link to="/cart" className="cart-btn">
+                <Link to="/cart" className="cart-btn text-link">
                   <i className="fa fa-shopping-cart"></i> 3 Items
                 </Link>
               </Col>

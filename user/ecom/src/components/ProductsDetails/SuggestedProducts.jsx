@@ -27,7 +27,7 @@ export class SuggestedProducts extends Component {
               </Card>
             </Col>
             <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-              <Link to="/productsdetails">
+              <Link to="/productsdetails" className="text-link">
                 <Card className="image-box card">
                   <img
                     src="https://m.media-amazon.com/images/I/41QioujvLVL._SX300_SY300_QL70_FMwebp_.jpg"

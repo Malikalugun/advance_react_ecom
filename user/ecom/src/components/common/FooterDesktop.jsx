@@ -86,30 +86,30 @@ class FooterDesktop extends Component {
 
               <Col lg={3} md={3} sm={6} xs={12}>
                 <h5 className="footer-menu-title">The Company</h5>
-                <Link to="/about" className="footer-link">
+                <Link to="/about" className="footer-link text-link">
                   About us
                 </Link>
                 <br></br>
-                <Link to="/" className="footer-link">
+                <Link to="/" className="footer-link text-link">
                   Company Profile
                 </Link>
                 <br></br>
-                <Link to="/contact" className="footer-link">
+                <Link to="/contact" className="footer-link text-link">
                   Contact Us us
                 </Link>
                 <br></br>
               </Col>
               <Col lg={3} md={3} sm={6} xs={12}>
                 <h5 className="footer-menu-title">More Info</h5>
-                <Link to="/purches" className="footer-link">
+                <Link to="/purches" className="footer-link text-link">
                   How to purchase
                 </Link>
                 <br></br>
-                <Link to="/privacy" className="footer-link">
+                <Link to="/privacy" className="footer-link text-link">
                   Privacy Policy
                 </Link>
                 <br></br>
-                <Link to="/refund" className="footer-link">
+                <Link to="/refund" className="footer-link text-link">
                   Refund Policy
                 </Link>
                 <br></br>

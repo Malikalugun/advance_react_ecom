@@ -14,7 +14,7 @@
   overflow: paged-y;
   box-shadow: 0 0 2px 0 rgba(57, 78, 234, 0.1);
 }
-.active,
+.accordion.active,
 .accordionMobile:hover {
   color: #ffffff;
   font-weight: 400;

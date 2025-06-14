@@ -3,6 +3,7 @@ import React, { Component, Fragment } from "react";
 import AppURL from "../../api/AppURL";
 import { Container, Navbar, Row, Col, Form, Button } from "react-bootstrap";
 import ReactHtmlParser from "html-react-parser";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 class Privacy extends Component {
   constructor() {
     super();
@@ -33,6 +34,14 @@ class Privacy extends Component {
     return (
       <Fragment>
         <Container>
+          <div className="breadbody">
+            <Breadcrumb>
+              <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+              <Breadcrumb.Item active className="breadcrumbactive">
+                Privacy Policy
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
           <Row className="p-2">
             <Col
               className="shadow bg-white mt-2"

@@ -1,14 +1,117 @@
 import React, { Component, Fragment } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import Product1 from "../../assets/images/product/product1.png";
-import Product2 from "../../assets/images/product/product2.png";
-import Product3 from "../../assets/images/product/product3.png";
-import Product4 from "../../assets/images/product/product4.png";
+import { Container, Row, Col } from "react-bootstrap";
+import ReactDOM from "react-dom";
+import { Link } from "react-router-dom";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 export class ProductsDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      previewImage: "", // default value
+    };
+    this.imgOnClick = this.imgOnClick.bind(this); // bind method
+  }
+  componentDidMount() {
+    const { productDetails } = this.props.data;
+    if (productDetails && productDetails.length > 0) {
+      this.setState({ previewImage: productDetails[0].image_one });
+    }
+  }
+
+  imgOnClick(event) {
+    const imgSrc = event.target.getAttribute("src");
+    this.setState({ previewImage: imgSrc });
+  }
+  PriceOption(price, special_price) {
+    if (special_price == "na") {
+      return <p className="product-price-on-card">Price : {price}₹</p>;
+    } else {
+      return (
+        <p className="product-price-on-card">
+          Price : <strike className="text-secondary">{price}₹ </strike>
+          {special_price}₹
+        </p>
+      );
+    }
+  }
   render() {
+    let ProductAllData = this.props.data;
+    let title = ProductAllData["prductList"][0]["title"];
+    let brand = ProductAllData["prductList"][0]["brand"];
+    let category = ProductAllData["prductList"][0]["category"];
+    let subcategory = ProductAllData["prductList"][0]["subcategory"];
+    let image = ProductAllData["prductList"][0]["image"];
+    let product_code = ProductAllData["prductList"][0]["product_code"];
+    let remark = ProductAllData["prductList"][0]["remark"];
+    let special_price = ProductAllData["prductList"][0]["special_price"];
+    let price = ProductAllData["prductList"][0]["price"];
+    let star = ProductAllData["prductList"][0]["star"];
+
+    let image_one = ProductAllData["productDetails"][0]["image_one"];
+    let image_two = ProductAllData["productDetails"][0]["image_two"];
+    let image_three = ProductAllData["productDetails"][0]["image_three"];
+    let image_four = ProductAllData["productDetails"][0]["image_four"];
+    let color = ProductAllData["productDetails"][0]["color"];
+    let size = ProductAllData["productDetails"][0]["size"];
+    let product_id = ProductAllData["productDetails"][0]["product_id"];
+    let shortdescription =
+      ProductAllData["productDetails"][0]["short_description"];
+    let long_description =
+      ProductAllData["productDetails"][0]["long_description"];
+    var ColorDiv = "d-none";
+    if (color != "na") {
+      let ColorArray = color.split(",");
+      var ColorOption = ColorArray.map((ColorList, i) => {
+        return <option value={ColorList}>{ColorList}</option>;
+      });
+      ColorDiv = "";
+    } else {
+      ColorDiv = "d-none";
+    }
+    var SizeDiv = "d-none";
+    if (size != "na") {
+      let SizeArray = size.split(",");
+      var SizeOption = SizeArray.map((SizeList, i) => {
+        return <option value={SizeList}>{SizeList}</option>;
+      });
+      SizeDiv = "";
+    } else {
+      SizeDiv = "d-none";
+    }
     return (
       <Fragment>
         <Container className="BetweenTwoSection" fluid={true}>
+          <div className="breadbody">
+            <Breadcrumb>
+              <Breadcrumb.Item>
+                <Link to="/">Home</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item className="breadcrumbactive">
+                <Link to={"/productcategory/" + category}>{category}</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item className="breadcrumbactive">
+                <Link
+                  to={"/productsubcategory/" + category + "/" + subcategory}
+                >
+                  {subcategory}
+                </Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item active className="breadcrumbactive">
+                <Link
+                  to={
+                    "/productsdetails/" +
+                    category +
+                    "/" +
+                    subcategory +
+                    "/" +
+                    product_id
+                  }
+                >
+                  {title}
+                </Link>
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
           <Row className="p-2">
             <Col
               className="shadow-sm bg-white pb-3 mt-4"
@@ -19,44 +122,67 @@ export class ProductsDetails extends Component {
             >
               <Row>
                 <Col className="p-3" md={6} lg={6} sm={12} xs={12}>
-                  <img className="w-100" src={Product1} />
+                  <div className="bigimage">
+                    <img src={this.state.previewImage} id="previewImage" />
+                  </div>
                   <Container className="my-3">
                     <Row>
                       <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
-                        <img className="w-100" src={Product1} />
+                        <div className="smallimg">
+                          <img
+                            src={image_one}
+                            className="product-sm-img"
+                            onClick={this.imgOnClick}
+                          />
+                        </div>
                       </Col>
                       <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
-                        <img className="w-100" src={Product2} />
+                        <div className="smallimg">
+                          <img
+                            src={image_two}
+                            className="product-sm-img"
+                            onClick={this.imgOnClick}
+                          />
+                        </div>
                       </Col>
                       <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
-                        <img className="w-100" src={Product3} />
+                        <div className="smallimg">
+                          <img
+                            src={image_three}
+                            className="product-sm-img"
+                            onClick={this.imgOnClick}
+                          />
+                        </div>
                       </Col>
                       <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
-                        <img className="w-100" src={Product4} />
+                        <div className="smallimg">
+                          <img
+                            src={image_four}
+                            className="product-sm-img"
+                            onClick={this.imgOnClick}
+                          />
+                        </div>
                       </Col>
                     </Row>
                   </Container>
                 </Col>
                 <Col className="p-3 " md={6} lg={6} sm={12} xs={12}>
-                  <h5 className="Product-Name">
-                    ASUS TUF A15 FA506IU Ryzen 7 4800H GTX
-                  </h5>
-                  <h6 className="section-sub-title">
-                    Some Of Our Exclusive Collection, You May Like Some Of Our
-                    Exclusive Collectio
+                  <h5 className="Product-Name">{title}</h5>
+                  <h6 className="section-sub-title">{shortdescription}</h6>
+                  {this.PriceOption(price, special_price)}
+                  <h6 className="mt-2">
+                    Category : <b>{category}</b>
                   </h6>
-                  <div className="input-group">
-                    <div className="Product-price-card d-inline ">
-                      Reguler Price 200
-                    </div>
-                    <div className="Product-price-card d-inline ">
-                      50% Discount
-                    </div>
-                    <div className="Product-price-card d-inline ">
-                      New Price 100
-                    </div>
-                  </div>
-                  <h6 className="mt-2">Choose Color</h6>
+                  <h6 className="mt-2">
+                    SubCategory : <b>{subcategory}</b>
+                  </h6>
+                  <h6 className="mt-2">
+                    Brand : <b>{brand}</b>
+                  </h6>
+                  <h6 className="mt-2">
+                    Product Code : <b>{product_code}</b>
+                  </h6>
+                  {/* <h6 className="mt-2">Choose Color</h6>
                   <div className="input-group">
                     <div className="form-check mx-1">
                       <input
@@ -103,9 +229,15 @@ export class ProductsDetails extends Component {
                         Red
                       </label>
                     </div>
+                  </div> */}
+                  <div className={ColorDiv}>
+                    <h6 className="mt-2">Choose Color</h6>
+                    <select name="" id="" className="form-control form-select">
+                      <option value="">Choose Color</option>
+                      {ColorOption}
+                    </select>
                   </div>
-
-                  <h6 className="mt-2">Choose Size</h6>
+                  {/* <h6 className="mt-2">Choose Size</h6>
                   <div className="input-group">
                     <div className="form-check mx-1">
                       <input
@@ -152,13 +284,36 @@ export class ProductsDetails extends Component {
                         XXXX
                       </label>
                     </div>
+                  </div> */}
+                  <div className={SizeDiv}>
+                    <h6 className="mt-2">Choose Size</h6>
+                    <select name="" id="" className="form-control form-select">
+                      <option value="">Choose Size</option>
+                      {SizeOption}
+                    </select>
                   </div>
 
-                  <h6 className="mt-2">Quantity</h6>
+                  {/* <h6 className="mt-2">Quantity</h6>
                   <input
                     className="form-control text-center w-50"
                     type="number"
-                  />
+                  /> */}
+                  <div className="">
+                    <h6 className="mt-2">Choose Quantity</h6>
+                    <select name="" id="" className="form-control form-select">
+                      <option value="">Choose Quantity</option>
+                      <option value="01">01</option>
+                      <option value="02">02</option>
+                      <option value="03">03</option>
+                      <option value="04">04</option>
+                      <option value="05">05</option>
+                      <option value="06">06</option>
+                      <option value="07">07</option>
+                      <option value="08">08</option>
+                      <option value="09">09</option>
+                      <option value="10">10</option>
+                    </select>
+                  </div>
 
                   <div className="input-group mt-3">
                     <button className="btn site-btn m-1 ">
@@ -180,24 +335,7 @@ export class ProductsDetails extends Component {
               <Row>
                 <Col className="" md={6} lg={6} sm={12} xs={12}>
                   <h6 className="mt-2">DETAILS</h6>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                    magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                    quis nostrud exerci tation Lorem ipsum dolor sit amet,
-                    consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                    tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
-                    wisi enim ad minim veniam, quis nostrud exerci tation
-                  </p>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                    magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                    quis nostrud exerci tation Lorem ipsum dolor sit amet,
-                    consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                    tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
-                    wisi enim ad minim veniam, quis nostrud exerci tation
-                  </p>
+                  <p>{long_description}</p>
                 </Col>
 
                 <Col className="" md={6} lg={6} sm={12} xs={12}>

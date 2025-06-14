@@ -15,6 +15,16 @@ class AppURL {
       this.BaseURL + "/productlistbysubcategory/" + category + "/" + subcategory
     );
   }
+  static AllSlider = this.BaseURL + "/allslider";
+  // product details
+  static ProductDetails(code) {
+    return this.BaseURL + "/product-details/" + code;
+  }
+  static NotificationHistory = this.BaseURL + "/notification";
+
+  static SearchProduct(searchkey) {
+    return this.BaseURL + "/search/" + searchkey;
+  }
 }
 
 export default AppURL;

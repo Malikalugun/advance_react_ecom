@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from "react";
-import { Container, Navbar, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import ReactHtmlParser from "html-react-parser";
 import axios from "axios";
 import AppURL from "../../api/AppURL";
 import { ToastContainer, toast } from "react-toastify";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 export class Purches extends Component {
   constructor() {
     super();
@@ -51,6 +52,14 @@ export class Purches extends Component {
     return (
       <Fragment>
         <Container>
+          <div className="breadbody">
+            <Breadcrumb>
+              <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+              <Breadcrumb.Item active className="breadcrumbactive">
+                Purches
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
           <Row className="p-2">
             <Col
               className="shadow bg-white mt-2"

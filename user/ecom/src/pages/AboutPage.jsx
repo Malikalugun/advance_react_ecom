@@ -6,6 +6,9 @@ import FooterMobile from "../components/common/FooterMobile";
 import About from "../components/others/About";
 
 export class AboutPage extends Component {
+  componentDidMount() {
+    window.scroll(0, 0);
+  }
   render() {
     return (
       <Fragment>

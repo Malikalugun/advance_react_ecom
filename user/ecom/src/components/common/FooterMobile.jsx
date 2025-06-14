@@ -33,15 +33,15 @@ class FooterMobile extends Component {
 
               <Col lg={3} md={3} sm={6} xs={12}>
                 <h5 className="footer-menu-title">The Company</h5>
-                <Link to="/about" className="footer-link">
+                <Link to="/about" className="footer-link text-link">
                   About us
                 </Link>
                 <br></br>
-                <Link to="/" className="footer-link">
+                <Link to="/" className="footer-link text-link">
                   Company Profile
                 </Link>
                 <br></br>
-                <Link to="/contact" className="footer-link">
+                <Link to="/contact" className="footer-link text-link">
                   Contact Us
                 </Link>
                 <br></br>
