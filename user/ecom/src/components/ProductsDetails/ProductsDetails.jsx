@@ -9,7 +9,7 @@ export class ProductsDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      previewImage: "", // default value
+      previewImage: "0",
     };
     this.imgOnClick = this.imgOnClick.bind(this); // bind method
   }
@@ -20,10 +20,10 @@ export class ProductsDetails extends Component {
     }
   }
 
-  imgOnClick(event) {
+  imgOnClick = (event) => {
     const imgSrc = event.target.getAttribute("src");
     this.setState({ previewImage: imgSrc });
-  }
+  };
   PriceOption(price, special_price) {
     if (special_price == "na") {
       return <p className="product-price-on-card">Price : {price}₹</p>;
@@ -43,6 +43,11 @@ export class ProductsDetails extends Component {
     let category = ProductAllData["prductList"][0]["category"];
     let subcategory = ProductAllData["prductList"][0]["subcategory"];
     let image = ProductAllData["prductList"][0]["image"];
+
+    if (this.state.previewImage === "0") {
+      this.setState({ previewImage: image });
+    }
+
     let product_code = ProductAllData["prductList"][0]["product_code"];
     let remark = ProductAllData["prductList"][0]["remark"];
     let special_price = ProductAllData["prductList"][0]["special_price"];
