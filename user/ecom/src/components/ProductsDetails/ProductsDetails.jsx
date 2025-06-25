@@ -3,6 +3,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
+import "react-inner-image-zoom/lib/styles.min.css";
+import InnerImageZoom from "react-inner-image-zoom";
 export class ProductsDetails extends Component {
   constructor(props) {
     super(props);
@@ -123,7 +125,15 @@ export class ProductsDetails extends Component {
               <Row>
                 <Col className="p-3" md={6} lg={6} sm={12} xs={12}>
                   <div className="bigimage">
-                    <img src={this.state.previewImage} id="previewImage" />
+                    {/* <img src={this.state.previewImage} id="previewImage" /> */}
+                    <div className="bigimage">
+                      <InnerImageZoom
+                        zoomScale={1.8}
+                        zoomType={"hover"}
+                        src={this.state.previewImage}
+                        zoomSrc={this.state.previewImage}
+                      />
+                    </div>
                   </div>
                   <Container className="my-3">
                     <Row>

@@ -10,6 +10,8 @@ export class RegisterPage extends Component {
     window.scroll(0, 0);
   }
   render() {
+    const setUser = this.props.setUser;
+    const user = this.props.user;
     return (
       <div>
         <Fragment>
@@ -19,7 +21,7 @@ export class RegisterPage extends Component {
           <div className="Mobile">
             <NavMenuMobile />
           </div>
-          <Register />
+          <Register setUser={setUser} user={user} />
           <div className="Desktop">
             <FooterDesktop />
           </div>

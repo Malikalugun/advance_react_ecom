@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Routes, Route } from "react-router-dom";
-
+import axios from "axios";
+import AppURL from "../api/AppURL";
 import HomePage from "../pages/HomePage";
 import UserLogin from "../pages/UserLogin";
 import ContactPage from "../pages/ContactPage";
@@ -19,13 +20,39 @@ import RegisterPage from "../pages/RegisterPage";
 import ForgetPage from "../pages/ForgetPage";
 import ResetpasswordPage from "../pages/ResetpasswordPage";
 import ProfilePage from "../pages/ProfilePage";
+import NavMenuDesktop from "../components/common/NavMenuDesktop";
 class AppRoute extends Component {
+  constructor() {
+    super();
+    this.state = {
+      user: {},
+    };
+  }
+  componentDidMount() {
+    axios
+      .get(AppURL.UserData)
+      .then((response) => {
+        this.setUser(response.data);
+      })
+      .catch((error) => {});
+  }
+  setUser = (user) => {
+    this.setState({
+      user: user,
+    });
+  };
   render() {
     return (
       <Fragment>
+        <NavMenuDesktop user={this.state.user} setUser={this.setUser} />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<UserLogin />} />
+          <Route
+            path="/login"
+            element={
+              <UserLogin user={this.state.user} setUser={this.setUser} />
+            }
+          />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/purches" element={<PurchesPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
@@ -45,10 +72,20 @@ class AppRoute extends Component {
             element={<ProductSubCategoryPage />}
           />
           <Route path="/productbysearch/:searchKey" element={<SearchPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/register"
+            element={
+              <RegisterPage user={this.state.user} setUser={this.setUser} />
+            }
+          />
           <Route path="/forget" element={<ForgetPage />} />
           <Route path="/reset/:id" element={<ResetpasswordPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route
+            path="/profile"
+            element={
+              <ProfilePage user={this.state.user} setUser={this.setUser} />
+            }
+          />
         </Routes>
       </Fragment>
     );

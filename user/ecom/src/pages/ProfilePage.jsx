@@ -1,11 +1,11 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import NavMenuDesktop from "../components/common/NavMenuDesktop";
 import NavMenuMobile from "../components/common/NavMenuMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
 import FooterMobile from "../components/common/FooterMobile";
-import { Fragment } from "react";
 import Profile from "../components/common/Profile";
-function ProfilePage() {
+
+function ProfilePage({ user }) {
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
@@ -19,7 +19,7 @@ function ProfilePage() {
         <div className="Mobile">
           <NavMenuMobile />
         </div>
-        <Profile />
+        <Profile user={user} />
         <div className="Desktop">
           <FooterDesktop />
         </div>

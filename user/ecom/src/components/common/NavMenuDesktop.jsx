@@ -56,8 +56,71 @@ class NavMenuDesktop extends Component {
       return <Navigate to={"/productbysearch/" + this.state.searchkey} />;
     }
   }
+  logout = () => {
+    localStorage.clear();
+  };
 
   render() {
+    let buttons;
+    if (localStorage.getItem("token")) {
+      buttons = (
+        <div>
+          <Link to="/favourite" className="btn text-link">
+            <i className="fa h4 fa-heart">
+              <sup>
+                <span className="badge text-white bg-danger">3</span>
+              </sup>
+            </i>
+          </Link>
+          <Link to="/notification-page" className="btn text-link">
+            <i className="fa h4 fa-bell">
+              <sup>
+                <span className="badge text-white bg-danger">5</span>
+              </sup>
+            </i>
+          </Link>
+          <Link to="/profile" className="h4 btn text-link">
+            Profile
+          </Link>
+          <Link to="/" onClick={this.logout} className="h4 btn text-link">
+            Logout
+          </Link>
+
+          <Link to="/cart" className="cart-btn text-link">
+            <i className="fa fa-shopping-cart"></i>3 Items
+          </Link>
+        </div>
+      );
+    } else {
+      buttons = (
+        <div>
+          <Link to="/favourite" className="btn text-link">
+            <i className="fa h4 fa-heart">
+              <sup>
+                <span className="badge text-white bg-danger">3</span>
+              </sup>
+            </i>
+          </Link>
+          <Link to="/notification-page" className="btn text-link">
+            <i className="fa h4 fa-bell">
+              <sup>
+                <span className="badge text-white bg-danger">5</span>
+              </sup>
+            </i>
+          </Link>
+          <Link to="/login" className="h4 btn text-link">
+            Login
+          </Link>
+          <Link to="/register" className="h4 btn text-link">
+            Register
+          </Link>
+
+          <Link to="/cart" className="cart-btn text-link">
+            <i className="fa fa-shopping-cart"></i>3 Items
+          </Link>
+        </div>
+      );
+    }
     return (
       <Fragment>
         <div className="TopSectionDown">
@@ -95,30 +158,7 @@ class NavMenuDesktop extends Component {
                   </div>
                 </Col>
                 <Col className="p-1 mt-1" lg={4} md={4} sm={12} xs={12}>
-                  <Link to="/favourite" className="btn text-link">
-                    <i className="fa h4 fa-heart">
-                      <sup>
-                        <span className="badge text-white bg-danger">3</span>
-                      </sup>
-                    </i>
-                  </Link>
-                  <Link to="/notification-page" className="btn text-link">
-                    <i className="fa h4 fa-bell">
-                      <sup>
-                        <span className="badge text-white bg-danger">5</span>
-                      </sup>
-                    </i>
-                  </Link>
-
-                  <Link to="/login" className="h4 btn text-link">
-                    Login
-                  </Link>
-                  <Link to="/register" className="h4 btn text-link">
-                    Register
-                  </Link>
-                  <Link to="/cart" className="cart-btn text-link">
-                    <i className="fa fa-shopping-cart"></i>3 Items
-                  </Link>
+                  {buttons}
                 </Col>
               </Row>
               {this.searchRedirect()}
