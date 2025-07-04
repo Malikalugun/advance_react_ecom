@@ -1,8 +1,59 @@
+import axios from "axios";
 import React, { Component, Fragment } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import AppURL from "../../api/AppURL";
+
 export class SuggestedProducts extends Component {
+  constructor() {
+    super();
+    this.state = {
+      ProductData: [],
+    };
+  }
+
+  componentDidMount() {
+    const subcategory = this.props.subcategory;
+    axios
+      .get(AppURL.SimilarProduct(subcategory))
+      .then((response) => {
+        this.setState({ ProductData: response.data });
+      })
+      .catch((error) => {
+        console.error("Failed to fetch suggested products", error);
+      });
+  }
+
   render() {
+    const MyList = this.state.ProductData;
+
+    const MyView = MyList.map((ProductList, i) => (
+      <Col className="p-1" key={i} xl={2} lg={2} md={2} sm={4} xs={6}>
+        <Link className="text-link" to={`/productsdetails/${ProductList.id}`}>
+          <Card className="image-box card">
+            <img
+              src={ProductList.image}
+              alt={ProductList.title}
+              className="center"
+            />
+            <Card.Body>
+              <p className="product-name-on-card">{ProductList.title}</p>
+              {ProductList.special_price === "na" ? (
+                <p className="product-price-on-card">
+                  Price: ₹{ProductList.price}
+                </p>
+              ) : (
+                <p className="product-price-on-card">
+                  Price: <strike>₹{ProductList.price}</strike> ₹
+                  {ProductList.special_price}
+                </p>
+              )}
+            </Card.Body>
+          </Card>
+        </Link>
+      </Col>
+    ));
+
     return (
       <Fragment>
         <Container className="text-center" fluid={true}>
@@ -10,100 +61,11 @@ export class SuggestedProducts extends Component {
             <h2>You May Like</h2>
             <p>Some Of Our Exclusive Collection, You May Like</p>
           </div>
-          <Row>
-            <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-              <Card className="image-box card">
-                <img
-                  src="https://m.media-amazon.com/images/I/41Qk2Ca0TEL._SX300_SY300_QL70_FMwebp_.jpg"
-                  alt=""
-                  className="center"
-                />
-                <Card.Body>
-                  <p className="product-name-on-card">
-                    Redmi 13 5G, Orchid Pink, 6GB+128GB1111
-                  </p>
-                  <p className="product-price-on-card">Price: ₹4599</p>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-              <Link to="/productsdetails" className="text-link">
-                <Card className="image-box card">
-                  <img
-                    src="https://m.media-amazon.com/images/I/41QioujvLVL._SX300_SY300_QL70_FMwebp_.jpg"
-                    alt=""
-                    className="center"
-                  />
-                  <Card.Body>
-                    <p className="product-name-on-card">
-                      Redmi 13 5G, Orchid Pink, 6GB+128GB
-                    </p>
-                    <p className="product-price-on-card">Price: ₹4599</p>
-                  </Card.Body>
-                </Card>
-              </Link>
-            </Col>
-            <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-              <Card className="image-box card">
-                <img
-                  src="https://m.media-amazon.com/images/I/41Wp0A8YaHL._SY300_SX300_.jpg"
-                  alt=""
-                  className="center"
-                />
-                <Card.Body>
-                  <p className="product-name-on-card">
-                    Redmi 13 5G, Orchid Pink, 6GB+128GB
-                  </p>
-                  <p className="product-price-on-card">Price: ₹4599</p>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-              <Card className="image-box card">
-                <img
-                  src="https://m.media-amazon.com/images/I/417Vg7bMHXL._SX300_SY300_QL70_FMwebp_.jpg"
-                  alt=""
-                  className="center"
-                />
-                <Card.Body>
-                  <p className="product-name-on-card">
-                    Redmi 13 5G, Orchid Pink, 6GB+128GB
-                  </p>
-                  <p className="product-price-on-card">Price: ₹4599</p>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-              <Card className="image-box card">
-                <img
-                  src="https://m.media-amazon.com/images/I/41X9qNxoJKL._SX300_SY300_QL70_FMwebp_.jpg"
-                  alt=""
-                  className="center"
-                />
-                <Card.Body>
-                  <p className="product-name-on-card">
-                    Redmi 13 5G, Orchid Pink, 6GB+128GB
-                  </p>
-                  <p className="product-price-on-card">Price: ₹4599</p>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-              <Card className="image-box card">
-                <img
-                  src="https://m.media-amazon.com/images/I/4179exet8fL._SX300_SY300_QL70_FMwebp_.jpg"
-                  alt=""
-                  className="center"
-                />
-                <Card.Body>
-                  <p className="product-name-on-card">
-                    Redmi 13 5G, Orchid Pink, 6GB+128GB
-                  </p>
-                  <p className="product-price-on-card">Price: ₹4599</p>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
+          {MyList.length > 0 ? (
+            <Row>{MyView}</Row>
+          ) : (
+            <p>There have no similar products</p>
+          )}
         </Container>
       </Fragment>
     );

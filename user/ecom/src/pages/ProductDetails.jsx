@@ -7,7 +7,6 @@ import NavMenuMobile from "../components/common/NavMenuMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
 import FooterMobile from "../components/common/FooterMobile";
 import ProductsDetails from "../components/ProductsDetails/ProductsDetails";
-import SuggestedProducts from "../components/ProductsDetails/SuggestedProducts";
 import SilderLoading from "../components/common/Placeholder/SilderLoading";
 
 const ProductDetails = () => {
@@ -40,7 +39,6 @@ const ProductDetails = () => {
       ) : (
         <>
           <ProductsDetails data={ProductData} />
-          <SuggestedProducts />
         </>
       )}
 
