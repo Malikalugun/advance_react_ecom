@@ -33,6 +33,10 @@ class AppURL {
   static SimilarProduct(code) {
     return this.BaseURL + "/similar/" + code;
   }
+  static ReviewList(code) {
+    return this.BaseURL + "/reviewlist/" + code;
+  }
+  static AddToCart = this.BaseUrl + "/addtocart";
 }
 
 export default AppURL;

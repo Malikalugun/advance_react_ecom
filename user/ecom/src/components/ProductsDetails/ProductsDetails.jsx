@@ -6,14 +6,35 @@ import Breadcrumb from "react-bootstrap/Breadcrumb";
 import "react-inner-image-zoom/lib/styles.min.css";
 import InnerImageZoom from "react-inner-image-zoom";
 import SuggestedProducts from "./SuggestedProducts";
+import ReviewList from "./ReviewList";
 export class ProductsDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
       previewImage: "0",
+      isSize: null,
+      isColor: null,
+      color: "",
+      size: "",
+      quantity: "",
+      product_code: "",
     };
-    this.imgOnClick = this.imgOnClick.bind(this); // bind method
+    this.imgOnClick = this.imgOnClick.bind(this);
   }
+  addToCart = () => {};
+  colorOnChange = (event) => {
+    const color = event.target.value;
+
+    this.setState({ color: color });
+  };
+  sizeOnChange = (event) => {
+    let size = event.target.value;
+    this.setState({ size: size });
+  };
+  quantityOnChange = (event) => {
+    let quantity = event.target.value;
+    this.setState({ quantity: quantity });
+  };
   componentDidMount() {
     const { productDetails } = this.props.data;
     if (productDetails && productDetails.length > 0) {
@@ -25,18 +46,19 @@ export class ProductsDetails extends Component {
     const imgSrc = event.target.getAttribute("src");
     this.setState({ previewImage: imgSrc });
   };
-  PriceOption(price, special_price) {
-    if (special_price == "na") {
-      return <p className="product-price-on-card">Price : {price}₹</p>;
+  PriceOption = (price, special_price) => {
+    if (special_price === "na") {
+      return <p className="product-price-on-card">Price: {price}₹</p>;
     } else {
       return (
         <p className="product-price-on-card">
-          Price : <strike className="text-secondary">{price}₹ </strike>
+          Price: <strike className="text-secondary">{price}₹</strike>{" "}
           {special_price}₹
         </p>
       );
     }
-  }
+  };
+
   render() {
     let ProductAllData = this.props.data;
     let title = ProductAllData["prductList"][0]["title"];
@@ -86,6 +108,25 @@ export class ProductsDetails extends Component {
     } else {
       SizeDiv = "d-none";
     }
+    // color,size avilable or not
+    if (this.state.isSize === null) {
+      if (size != "na") {
+        this.setState({ isSize: "yes" });
+      } else {
+        this.setState({ isSize: "No" });
+      }
+    }
+    if (this.state.isColor === null) {
+      if (color != "na") {
+        this.setState({ isColor: "yes" });
+      } else {
+        this.setState({ isColor: "No" });
+      }
+    }
+    if (this.state.product_code === null) {
+      this.setState({ product_code: product_code });
+    }
+    // end
     return (
       <Fragment>
         <Container className="BetweenTwoSection" fluid={true}>
@@ -248,7 +289,12 @@ export class ProductsDetails extends Component {
                   </div> */}
                   <div className={ColorDiv}>
                     <h6 className="mt-2">Choose Color</h6>
-                    <select name="" id="" className="form-control form-select">
+                    <select
+                      name=""
+                      id=""
+                      className="form-control form-select"
+                      onChange={this.colorOnChange}
+                    >
                       <option value="">Choose Color</option>
                       {ColorOption}
                     </select>
@@ -303,7 +349,12 @@ export class ProductsDetails extends Component {
                   </div> */}
                   <div className={SizeDiv}>
                     <h6 className="mt-2">Choose Size</h6>
-                    <select name="" id="" className="form-control form-select">
+                    <select
+                      name=""
+                      id=""
+                      className="form-control form-select"
+                      onChange={this.sizeOnChange}
+                    >
                       <option value="">Choose Size</option>
                       {SizeOption}
                     </select>
@@ -316,7 +367,12 @@ export class ProductsDetails extends Component {
                   /> */}
                   <div className="">
                     <h6 className="mt-2">Choose Quantity</h6>
-                    <select name="" id="" className="form-control form-select">
+                    <select
+                      name=""
+                      id=""
+                      className="form-control form-select"
+                      onChange={this.quantityOnChange}
+                    >
                       <option value="">Choose Quantity</option>
                       <option value="01">01</option>
                       <option value="02">02</option>
@@ -355,51 +411,7 @@ export class ProductsDetails extends Component {
                 </Col>
 
                 <Col className="" md={6} lg={6} sm={12} xs={12}>
-                  <h6 className="mt-2">REVIEWS</h6>
-                  <p className=" p-0 m-0">
-                    <span className="Review-Title">Kazi Ariyan</span>{" "}
-                    <span className="text-success">
-                      <i className="fa fa-star"></i>{" "}
-                      <i className="fa fa-star"></i>{" "}
-                      <i className="fa fa-star"></i>{" "}
-                      <i className="fa fa-star"></i>{" "}
-                    </span>{" "}
-                  </p>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                    magna aliquam erat volutpat.
-                  </p>
-
-                  <p className=" p-0 m-0">
-                    <span className="Review-Title">Kazi Ariyan</span>{" "}
-                    <span className="text-success">
-                      <i className="fa fa-star"></i>{" "}
-                      <i className="fa fa-star"></i>{" "}
-                      <i className="fa fa-star"></i>{" "}
-                      <i className="fa fa-star"></i>{" "}
-                    </span>{" "}
-                  </p>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                    magna aliquam erat volutpat.
-                  </p>
-
-                  <p className=" p-0 m-0">
-                    <span className="Review-Title">Kazi Ariyan</span>{" "}
-                    <span className="text-success">
-                      <i className="fa fa-star"></i>{" "}
-                      <i className="fa fa-star"></i>{" "}
-                      <i className="fa fa-star"></i>{" "}
-                      <i className="fa fa-star"></i>{" "}
-                    </span>{" "}
-                  </p>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                    magna aliquam erat volutpat.
-                  </p>
+                  <ReviewList code={product_id} />
                 </Col>
               </Row>
             </Col>
