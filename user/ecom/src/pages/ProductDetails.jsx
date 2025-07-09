@@ -24,7 +24,7 @@ const ProductDetails = () => {
       })
       .catch((err) => console.error(err));
   }, [code]);
-
+  const User = this.props.user;
   return (
     <>
       <div className="Desktop">
@@ -38,7 +38,7 @@ const ProductDetails = () => {
         <SilderLoading />
       ) : (
         <>
-          <ProductsDetails data={ProductData} />
+          <ProductsDetails data={ProductData} user={User} />
         </>
       )}
 

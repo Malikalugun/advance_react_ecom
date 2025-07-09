@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import "react-inner-image-zoom/lib/styles.min.css";
 import InnerImageZoom from "react-inner-image-zoom";
 import SuggestedProducts from "./SuggestedProducts";
 import ReviewList from "./ReviewList";
+import cogoToast from "cogo-toast";
+import axios from "axios";
+import AppURL from "../../api/AppURL";
 export class ProductsDetails extends Component {
   constructor(props) {
     super(props);
@@ -18,10 +20,60 @@ export class ProductsDetails extends Component {
       size: "",
       quantity: "",
       product_code: "",
+      addTCart: "Add To Cart",
     };
     this.imgOnClick = this.imgOnClick.bind(this);
   }
-  addToCart = () => {};
+  addToCart = () => {
+    let isSize = this.state.isSize;
+    let isColor = this.state.isColor;
+    let size = this.state.size;
+    let color = this.state.color;
+    let quantity = this.state.quantity;
+    let product_code = this.state.product_code;
+    let email = this.props.user.email;
+    if (isColor === "Yes" && color.length === 0) {
+      cogoToast.error("Please select color", { position: "top-right" });
+    } else if (isSize === "Yes" && size.length === 0) {
+      cogoToast.error("Please select size", { position: "top-right" });
+    } else if (quantity.length === 0) {
+      cogoToast.error("Please select quantity", { position: "top-right" });
+    } else if (!localStorage.getItem("token")) {
+      cogoToast.warn("Please you have to login first", {
+        position: "top-right",
+      });
+    } else {
+      this.setState({ addToCart: "Adding..." });
+      let MyFormData = new FormData();
+      MyFormData.append("color", color);
+      MyFormData.append("size", size);
+      MyFormData.append("quantity", quantity);
+      MyFormData.append("product_code", product_code);
+      MyFormData.append("email", email);
+      axios
+        .post(AppURL.AddToCart, MyFormData)
+        .then((response) => {
+          if (response.data === 1) {
+            cogoToast.success("Product Added Successfully", {
+              position: "top-right",
+            });
+            this.setState({
+              addToCart: "Add To Cart",
+            });
+          } else {
+            cogoToast.error("Your request is not done! Try again", {
+              position: "top-right",
+            });
+            this.setState({ addToCart: "Add To Cart" });
+          }
+        })
+        .catch((error) => {
+          cogoToast.error("Your request is not done! Try again", {
+            position: "top-right",
+          });
+        });
+    }
+  };
   colorOnChange = (event) => {
     const color = event.target.value;
 
@@ -35,10 +87,24 @@ export class ProductsDetails extends Component {
     let quantity = event.target.value;
     this.setState({ quantity: quantity });
   };
+  // componentDidMount() {
+  //   const { productDetails } = this.props.data;
+  //   if (productDetails && productDetails.length > 0) {
+  //     this.setState({ previewImage: productDetails[0].image_one });
+  //   }
+  // }
   componentDidMount() {
-    const { productDetails } = this.props.data;
+    const { productDetails, prductList } = this.props.data;
     if (productDetails && productDetails.length > 0) {
-      this.setState({ previewImage: productDetails[0].image_one });
+      const previewImage = productDetails[0].image_one;
+      const { product_code, size, color } = productDetails[0];
+
+      this.setState({
+        previewImage,
+        product_code,
+        isSize: size !== "na" ? "Yes" : "No",
+        isColor: color !== "na" ? "Yes" : "No",
+      });
     }
   }
 
@@ -388,9 +454,13 @@ export class ProductsDetails extends Component {
                   </div>
 
                   <div className="input-group mt-3">
-                    <button className="btn site-btn m-1 ">
+                    <button
+                      className="btn site-btn m-1 "
+                      onClick={this.addTCart}
+                    >
                       {" "}
-                      <i className="fa fa-shopping-cart"></i> Add To Cart
+                      <i className="fa fa-shopping-cart"></i>{" "}
+                      {this.state.addTCart}
                     </button>
                     <button className="btn btn-primary m-1">
                       {" "}
