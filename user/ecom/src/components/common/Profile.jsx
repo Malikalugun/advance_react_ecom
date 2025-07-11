@@ -1,26 +1,35 @@
-import React, { Fragment } from "react";
-import { Container } from "react-bootstrap";
-import { Navigate } from "react-router";
+import React, { Component } from 'react'
+import { Fragment } from 'react'
+import { Redirect } from 'react-router';
 
-function Profile({ user }) {
-  const name = user?.name || "N/A";
-  const email = user?.email || "N/A";
-  if (!localStorage.getItem("token")) {
-    return <Navigate to={"/login"} />;
-  }
-  return (
-    <div>
-      <Fragment>
-        <Container>
-          <h2>User Profile Page</h2>
-          <ul className="list-group">
-            <li className="list-group-item">Name: {name}</li>
-            <li className="list-group-item">Email: {email}</li>
-          </ul>
-        </Container>
-      </Fragment>
-    </div>
-  );
+class Profile extends Component {
+     render() { 
+
+          let name;
+          let email;
+          if(this.props.user){
+               name = this.props.user.name;
+               email = this.props.user.email;
+          }
+
+          if(!localStorage.getItem('token')){
+               return <Redirect to="/login" />
+          }
+
+
+          return (
+              <Fragment>
+                   <h1> User Profile Page </h1>
+
+               <ul className="list-group">
+<li className="list-group-item">Name :  {name} </li>
+<li className="list-group-item">Email :  {email} </li>
+               </ul>
+
+
+              </Fragment>
+          )
+     }
 }
 
-export default Profile;
+export default Profile

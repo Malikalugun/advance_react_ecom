@@ -1,42 +1,50 @@
 class AppURL {
-  static BaseURL = "http://127.0.0.1:8000/api";
-  static VisitorDetails = this.BaseURL + "/getVisitor";
-  static PostContact = this.BaseURL + "/postcontact";
-  static AllSiteInfo = this.BaseURL + "/allsiteinfo";
-  static AllCategoryDetails = this.BaseURL + "/allcategory";
-  static ProductListByRemark(remark) {
-    return this.BaseURL + "/productlistbyremark/" + remark;
-  }
-  static ProductListByCategory(category) {
-    return this.BaseURL + "/productlistbycategory/" + category;
-  }
-  static ProductListBySubCategory(category, subcategory) {
-    return (
-      this.BaseURL + "/productlistbysubcategory/" + category + "/" + subcategory
-    );
-  }
-  static AllSlider = this.BaseURL + "/allslider";
-  // product details
-  static ProductDetails(code) {
-    return this.BaseURL + "/product-details/" + code;
-  }
-  static NotificationHistory = this.BaseURL + "/notification";
+     static BaseURL = "http://127.0.0.1:8000/api"
+     static VisitorDetails = this.BaseURL+"/getvisitor"
+     static PostContact = this.BaseURL+"/postcontact"
+     static AllSiteInfo = this.BaseURL+"/allsiteinfo"
+     static AllCategoryDetails = this.BaseURL+"/allcategory"
 
-  static SearchProduct(searchkey) {
-    return this.BaseURL + "/search/" + searchkey;
-  }
-  static UserLogin = this.BaseURL + "/login/";
-  static UserData = this.BaseURL + "/user";
-  static UserRegister = this.BaseURL + "/register";
-  static UserForgetPassword = this.BaseURL + "/forgetpassword";
-  static UserResetPassword = this.BaseURL + "/restpassword";
-  static SimilarProduct(code) {
-    return this.BaseURL + "/similar/" + code;
-  }
-  static ReviewList(code) {
-    return this.BaseURL + "/reviewlist/" + code;
-  }
-  static AddToCart = this.BaseUrl + "/addtocart";
+     static ProductListByRemark(Remark){
+          return this.BaseURL+"/productlistbyremark/"+Remark;
+     }
+
+     static ProductListByCategory(category){
+          return this.BaseURL+"/productlistbycategory/"+category;
+     }
+ 
+     static ProductListBySubCategory(category,subcategory){
+          return this.BaseURL+"/productlistbysubcategory/"+category+"/"+subcategory;
+     }
+
+     static AllSlider = this.BaseURL+"/allslider"
+
+     static ProductDetails(code){
+          return this.BaseURL+"/productdetails/"+code;
+     }
+
+     static NotificationHistory = this.BaseURL+"/notification"
+
+     static ProductBySearch(searchkey){
+          return this.BaseURL+"/search/"+searchkey;
+     }
+
+     static UserLogin = this.BaseURL+"/login"
+     static UserData = this.BaseURL+"/user"
+     static UserRegister = this.BaseURL+"/register"
+     static UserForgetPassword = this.BaseURL+"/forgetpassword"
+     static UserResetPassword = this.BaseURL+"/resetpassword"
+
+     static SimilarProduct(code){
+          return this.BaseURL+"/similar/"+code;
+     }
+
+     static ReviewList(code){
+          return this.BaseURL+"/reviewlist/"+code;
+     }
+
+     static addToCart = this.BaseURL+"/addtocart"
+      
 }
 
-export default AppURL;
+export default AppURL

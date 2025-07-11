@@ -1,5 +1,5 @@
 class validation {
-  static NameRegx = /^[A-Za-z'.: -]+$/;
+     static NameRegx = /^[A-Za-z\'\s\.\:\-]+$/;
 }
 
-export default validation;
+export default validation
