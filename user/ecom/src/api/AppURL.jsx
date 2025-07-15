@@ -1,50 +1,54 @@
 class AppURL {
-     static BaseURL = "http://127.0.0.1:8000/api"
-     static VisitorDetails = this.BaseURL+"/getvisitor"
-     static PostContact = this.BaseURL+"/postcontact"
-     static AllSiteInfo = this.BaseURL+"/allsiteinfo"
-     static AllCategoryDetails = this.BaseURL+"/allcategory"
+  static BaseURL = "http://127.0.0.1:8000/api";
+  static VisitorDetails = this.BaseURL + "/getvisitor";
+  static PostContact = this.BaseURL + "/postcontact";
+  static AllSiteInfo = this.BaseURL + "/allsiteinfo";
+  static AllCategoryDetails = this.BaseURL + "/allcategory";
 
-     static ProductListByRemark(Remark){
-          return this.BaseURL+"/productlistbyremark/"+Remark;
-     }
+  static ProductListByRemark(Remark) {
+    return this.BaseURL + "/productlistbyremark/" + Remark;
+  }
 
-     static ProductListByCategory(category){
-          return this.BaseURL+"/productlistbycategory/"+category;
-     }
- 
-     static ProductListBySubCategory(category,subcategory){
-          return this.BaseURL+"/productlistbysubcategory/"+category+"/"+subcategory;
-     }
+  static ProductListByCategory(category) {
+    return this.BaseURL + "/productlistbycategory/" + category;
+  }
 
-     static AllSlider = this.BaseURL+"/allslider"
+  static ProductListBySubCategory(category, subcategory) {
+    return (
+      this.BaseURL + "/productlistbysubcategory/" + category + "/" + subcategory
+    );
+  }
 
-     static ProductDetails(code){
-          return this.BaseURL+"/productdetails/"+code;
-     }
+  static AllSlider = this.BaseURL + "/allslider";
 
-     static NotificationHistory = this.BaseURL+"/notification"
+  static ProductDetails(code) {
+    return this.BaseURL + "/productdetails/" + code;
+  }
 
-     static ProductBySearch(searchkey){
-          return this.BaseURL+"/search/"+searchkey;
-     }
+  static NotificationHistory = this.BaseURL + "/notification";
 
-     static UserLogin = this.BaseURL+"/login"
-     static UserData = this.BaseURL+"/user"
-     static UserRegister = this.BaseURL+"/register"
-     static UserForgetPassword = this.BaseURL+"/forgetpassword"
-     static UserResetPassword = this.BaseURL+"/resetpassword"
+  static ProductBySearch(searchkey) {
+    return this.BaseURL + "/search/" + searchkey;
+  }
 
-     static SimilarProduct(code){
-          return this.BaseURL+"/similar/"+code;
-     }
+  static UserLogin = this.BaseURL + "/login";
+  static UserData = this.BaseURL + "/user";
+  static UserRegister = this.BaseURL + "/register";
+  static UserForgetPassword = this.BaseURL + "/forgetpassword";
+  static UserResetPassword = this.BaseURL + "/resetpassword";
 
-     static ReviewList(code){
-          return this.BaseURL+"/reviewlist/"+code;
-     }
+  static SimilarProduct(code) {
+    return this.BaseURL + "/similar/" + code;
+  }
 
-     static addToCart = this.BaseURL+"/addtocart"
-      
+  static ReviewList(code) {
+    return this.BaseURL + "/reviewlist/" + code;
+  }
+
+  static addToCart = this.BaseURL + "/addtocart";
+  static CartCount(product_code) {
+    return this.BaseURL + "/cartcount" + product_code;
+  }
 }
 
-export default AppURL
+export default AppURL;
