@@ -35,7 +35,7 @@ Route::get('/productlistbycategory/{category}', [ProductListController::class, '
 Route::get('/productlistbysubcategory/{category}/{subcategory}', [ProductListController::class, 'ProductListBySubCategory']);
 Route::get('/allslider', [HomeSliderController::class, 'AllSlider']);
 // product details
-Route::get('/product-details/{id}', [ProductDetailsController::class, 'ProductDetails']);
+Route::get('/productdetails/{id}', [ProductDetailsController::class, 'ProductDetails']);
 // notification start
 Route::get('/notification', [NotificationController::class, 'NotificationHistory']);
 // search route
