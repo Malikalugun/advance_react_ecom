@@ -22,11 +22,21 @@ class NavMenuDesktop extends Component {
     this.searchRedirect = this.searchRedirect.bind(this);
   }
   componentDidMount() {
-    let product_code = this.props.product_code;
-    axios.get(AppURL.CartCount(product_code)).then((response) => {
-      this.setState({ cartCount: response.data });
-    });
+    const { product_code } = this.props;
+
+    if (product_code) {
+      axios
+        .get(AppURL.CartCount(product_code))
+        .then((response) => {
+          console.log("API data:", response.data);
+          this.setState({ cartCount: response.data.count });
+        })
+        .catch((error) => {
+          console.error("API Error:", error);
+        });
+    }
   }
+
   logout = () => {
     localStorage.clear();
   };
