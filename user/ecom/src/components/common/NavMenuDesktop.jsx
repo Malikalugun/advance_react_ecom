@@ -22,19 +22,12 @@ class NavMenuDesktop extends Component {
     this.searchRedirect = this.searchRedirect.bind(this);
   }
   componentDidMount() {
-    const { product_code } = this.props;
+    let product_code = this.props.product_code;
 
-    if (product_code) {
-      axios
-        .get(AppURL.CartCount(product_code))
-        .then((response) => {
-          console.log("API data:", response.data);
-          this.setState({ cartCount: response.data.count });
-        })
-        .catch((error) => {
-          console.error("API Error:", error);
-        });
-    }
+    axios.get(AppURL.CartCount(product_code)).then((response) => {
+      console.log("API data:", response.data);
+      this.setState({ cartCount: response.data });
+    });
   }
 
   logout = () => {
@@ -139,7 +132,7 @@ class NavMenuDesktop extends Component {
           </Link>
 
           <Link to="/cart" className="cart-btn">
-            <i className="fa fa-shopping-cart"></i> {this.state.cartCount} Items
+            <i className="fa fa-shopping-cart"></i> 0 Items
           </Link>
         </div>
       );

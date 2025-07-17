@@ -69,6 +69,7 @@ class ProductDetails extends Component {
               position: "top-right",
             });
             this.setState({ addToCart: "Add To Cart" });
+            this.setState({ PageRefreshStatus: true });
           } else {
             cogoToast.error("Your Request is not done ! Try Aagain", {
               position: "top-right",
@@ -82,6 +83,7 @@ class ProductDetails extends Component {
             position: "top-right",
           });
           this.setState({ addToCart: "Add To Cart" });
+          this.setState({ PageRefreshStatus: true });
         });
     }
   }; /// End addToCart Mehtod
@@ -103,12 +105,17 @@ class ProductDetails extends Component {
     this.setState({ quantity: quantity });
   };
 
-  PageRefresh = () => {
-    if (this.state.PageRefreshStatus === true) {
-      let URL = window.location;
-      return <Redirect to={URL} />;
+  // PageRefresh = () => {
+  //   if (this.state.PageRefreshStatus === true) {
+  //     let URL = window.location;
+  //     return <Redirect to={URL} />;
+  //   }
+  // };
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.PageRefreshStatus && this.state.PageRefreshStatus) {
+      window.location.reload(); // this reloads the full browser tab
     }
-  };
+  }
 
   PriceOption(price, special_price) {
     if (special_price == "na") {
@@ -381,10 +388,7 @@ class ProductDetails extends Component {
             </Col>
           </Row>
         </Container>
-
         <SuggestedProduct subcategory={subcategory} />
-
-        {this.PageRefresh()}
       </Fragment>
     );
   }
