@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\VisitorController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\FavouriteController;
 use App\Http\Controllers\Admin\ProductListController;
 use App\Http\Controllers\Admin\HomeSliderController;
 use App\Http\Controllers\Admin\ProductDetailsController;
@@ -46,3 +47,5 @@ Route::get('/similar/{subcategory}', [ProductListController::class, 'SimilarProd
 Route::get('/reviewlist/{id}', [ProductReviewController::class, 'ReviewList']);
 // product cart 
 Route::post('/addtocart', [ProductCartController::class, 'AddToCart']);
+// favourities 
+Route::get('/favourites/{product_code}/{email}', [FavouriteController::class, 'AddFavourities']);
