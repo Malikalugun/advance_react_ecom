@@ -25,6 +25,7 @@ class ProductDetails extends Component {
       productCode: null,
       addToCart: "Add To Cart",
       PageRefreshStatus: false,
+      addToFav: "Favourite",
     };
   }
 
@@ -87,7 +88,39 @@ class ProductDetails extends Component {
         });
     }
   }; /// End addToCart Mehtod
-
+  // add to fav
+  addToFav = () => {
+    this.setState({ addToFav: "Adding..." });
+    let product_code = this.state.productCode;
+    let email = this.props.user.email;
+    if (!localStorage.getItem("token")) {
+      cogoToast.warn("Please You have to Login First", {
+        position: "top-right",
+      });
+    } else {
+      axios
+        .get(AppURL.AddFavourities(product_code, email))
+        .then((response) => {
+          if (response.data === 1) {
+            cogoToast.success("Product Is in Favourite", {
+              position: "top-right",
+            });
+            this.setState({ addToFav: "Favourite" });
+          } else {
+            cogoToast.error("Your Request is not done ! Try Aagain", {
+              position: "top-right",
+            });
+            this.setState({ addToFav: "Favourite" });
+          }
+        })
+        .catch((error) => {
+          cogoToast.error("Your Request is not done ! Try Aagain", {
+            position: "top-right",
+          });
+          this.setState({ addToFav: "Favourite" });
+        });
+    }
+  };
   colorOnChange = (event) => {
     let color = event.target.value;
     // alert(color);
@@ -105,15 +138,9 @@ class ProductDetails extends Component {
     this.setState({ quantity: quantity });
   };
 
-  // PageRefresh = () => {
-  //   if (this.state.PageRefreshStatus === true) {
-  //     let URL = window.location;
-  //     return <Redirect to={URL} />;
-  //   }
-  // };
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.PageRefreshStatus && this.state.PageRefreshStatus) {
-      window.location.reload(); // this reloads the full browser tab
+      window.location.reload();
     }
   }
 
@@ -367,9 +394,12 @@ class ProductDetails extends Component {
                       {" "}
                       <i className="fa fa-car"></i> Order Now
                     </button>
-                    <button className="btn btn-primary m-1">
+                    <button
+                      className="btn btn-primary m-1"
+                      onClick={this.addToFav}
+                    >
                       {" "}
-                      <i className="fa fa-heart"></i> Favourite
+                      <i className="fa fa-heart"></i> {this.state.addToFav}
                     </button>
                   </div>
                 </Col>

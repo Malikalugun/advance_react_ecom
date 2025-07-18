@@ -47,5 +47,7 @@ Route::get('/similar/{subcategory}', [ProductListController::class, 'SimilarProd
 Route::get('/reviewlist/{id}', [ProductReviewController::class, 'ReviewList']);
 // product cart 
 Route::post('/addtocart', [ProductCartController::class, 'AddToCart']);
+//  product count
+Route::get('/cartcount/{product_code}', [ProductCartController::class, 'CartCount']);
 // favourities 
 Route::get('/favourites/{product_code}/{email}', [FavouriteController::class, 'AddFavourities']);
