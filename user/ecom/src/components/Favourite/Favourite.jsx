@@ -53,6 +53,9 @@ class Favourite extends Component {
     }
   };
   render() {
+    if (!localStorage.getItem("token")) {
+      return <Redirect to={"/login"} />;
+    }
     const FavList = this.state.ProductData;
     const MyView = FavList.map((ProductList, i) => {
       return (
