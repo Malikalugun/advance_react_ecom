@@ -55,6 +55,9 @@ class AppURL {
   static FavouriteList(email) {
     return this.BaseURL + "/favouriteslist/" + email;
   }
+  static FavouriteRemove(product_code, email) {
+    return this.BaseURL + "/favouriteRemove/" + product_code + "/" + email;
+  }
 }
 
 export default AppURL;

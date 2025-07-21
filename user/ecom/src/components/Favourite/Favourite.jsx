@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import AppURL from "../../api/AppURL";
 import axios from "axios";
+import cogoToast from "cogo-toast";
+import { Redirect } from "react-router";
 
 class Favourite extends Component {
   constructor() {
@@ -14,6 +16,7 @@ class Favourite extends Component {
   }
 
   componentDidMount() {
+    window.scroll(0, 0);
     axios
       .get(AppURL.FavouriteList(this.props.user.email))
       .then((response) => {
@@ -21,11 +24,34 @@ class Favourite extends Component {
           ProductData: response.data,
           isLoading: "d-none",
           mainDiv: " ",
+          PageRefreshStatus: false,
         });
       })
       .catch((error) => {});
   }
-
+  removeItem = (event) => {
+    let product_code = event.target.getAttribute("data-code");
+    let email = this.props.user.email;
+    axios
+      .get(AppURL.FavouriteRemove(product_code, email))
+      .then((response) => {
+        cogoToast.success("Product is remove from favourites List", {
+          position: "top-right",
+        });
+        this.setState({ PageRefreshStatus: true });
+      })
+      .catch((error) => {
+        cogoToast.error("Your request is not done ! try it again!", {
+          position: "top-right",
+        });
+      });
+  };
+  PageRefresh = () => {
+    if (this.state.PageRefreshStatus === true) {
+      let URL = window.location;
+      return <Redirect to={URL} />;
+    }
+  };
   render() {
     const FavList = this.state.ProductData;
     const MyView = FavList.map((ProductList, i) => {
@@ -36,7 +62,11 @@ class Favourite extends Component {
             <Card.Body>
               <p className="product-name-on-card">{ProductList.title}</p>
 
-              <Button className="btn btn-sm">
+              <Button
+                data-code={ProductList.product_code}
+                onClick={this.removeItem}
+                className="btn btn-sm"
+              >
                 {" "}
                 <i className="fa fa-trash-alt"></i> Remove{" "}
               </Button>
@@ -56,6 +86,7 @@ class Favourite extends Component {
 
           <Row>{MyView}</Row>
         </Container>
+        {this.PageRefresh}
       </Fragment>
     );
   }
