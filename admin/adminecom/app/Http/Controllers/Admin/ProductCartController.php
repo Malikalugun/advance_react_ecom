@@ -41,7 +41,7 @@ class ProductCartController extends Controller
     }
     public function CartCount(Request $request, $product_code)
     {
-        $product_code = $request->product_code;
+        $product_code = $request->email;
         $result = ProductCart::count();
         return $result;
     }
@@ -49,6 +49,32 @@ class ProductCartController extends Controller
     {
         $email = $request->email;
         $result = ProductCart::where('email', $email)->get();
+        return $result;
+    }
+    public function RemoveCartList(Request $request)
+    {
+        $id = $request->id;
+        $result = ProductCart::where("id", $id)->delete();
+        return $result;
+    }
+    public function CartItemPlus(Request $request)
+    {
+        $id = $request->id;
+        $quantity = $request->quantity;
+        $price = $request->total_price;
+        $newQuantity = $quantity + 1;
+        $totalPrice = $newQuantity * $price;
+        $result = ProductCart::where('id', $id)->update(['quantity' => $newQuantity, 'total_price' => $totalPrice]);
+        return $result;
+    }
+    public function CartItemMinus(Request $request)
+    {
+        $id = $request->id;
+        $quantity = $request->quantity;
+        $price = $request->total_price;
+        $newQuantity = $quantity - 1;
+        $total_price = $newQuantity * $price;
+        $result = ProductCart::where('id', $id)->update(['quantity' => $newQuantity, 'total_price' => $total_price]);
         return $result;
     }
 }

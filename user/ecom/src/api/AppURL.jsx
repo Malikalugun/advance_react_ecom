@@ -61,6 +61,19 @@ class AppURL {
   static CartList(email) {
     return this.BaseURL + "/CartList/" + email;
   }
+  static RemoveCartList(id) {
+    return this.BaseURL + "/removeCart/" + id;
+  }
+  static CartItemPlus(id, quantity, total_price) {
+    return (
+      this.BaseURL + "/cartitemplus/" + id + "/" + quantity + "/" + total_price
+    );
+  }
+  static CartItemMinus(id, quantity, total_price) {
+    return (
+      this.BaseURL + "/cartitemminus/" + id + "/" + quantity + "/" + total_price
+    );
+  }
 }
 
 export default AppURL;

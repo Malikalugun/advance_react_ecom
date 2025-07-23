@@ -3,6 +3,8 @@ import { Navbar, Container, Row, Col, Button, Card } from "react-bootstrap";
 import Product1 from "../../assets/images/product/product1.png";
 import axios from "axios";
 import AppURL from "../../api/AppURL";
+import cogoToast from "cogo-toast";
+import { Redirect } from "react-router";
 class Cart extends Component {
   constructor() {
     super();
@@ -10,6 +12,7 @@ class Cart extends Component {
       ProductData: [],
       inLoading: "",
       mainDiv: "d-none",
+      PageRefreshStatus: "false,",
     };
   }
   componentDidMount() {
@@ -24,6 +27,79 @@ class Cart extends Component {
       })
       .catch((error) => {});
   }
+  removeItem = (id) => {
+    axios
+      .get(AppURL.RemoveCartList(id))
+      .then((response) => {
+        // Check if response.data is exactly 1
+        if (response.data === 1) {
+          cogoToast.success("Product removed successfully", {
+            position: "top-right",
+          });
+          this.setState({ PageRefreshStatus: true });
+        } else {
+          cogoToast.error(
+            "Your request could not be completed. Please try again.",
+            {
+              position: "top-right",
+            }
+          );
+        }
+      })
+      .catch((error) => {
+        cogoToast.error("Something went wrong. Please try again.", {
+          position: "top-right",
+        });
+      });
+  };
+  ItemPlus = (id, quantity, total_price) => {
+    axios
+      .get(AppURL.CartItemPlus(id, quantity, total_price))
+      .then((response) => {
+        if (response.data === 1) {
+          cogoToast.success("Item Quantity Increase", {
+            position: "top-right",
+          });
+          this.setState({ PageRefreshStatus: true });
+        } else {
+          cogoToast.error("Your Request is not done! Try it again", {
+            position: "top-right",
+          });
+        }
+      })
+      .catch((error) => {
+        cogoToast.error("Your Request is not done catch! Try it again", {
+          position: "top-right",
+        });
+      });
+  };
+  ItemMinus = (id, quantity, total_price) => {
+    axios
+      .get(AppURL.CartItemMinus(id, quantity, total_price))
+      .then((response) => {
+        if (response.data === 1) {
+          cogoToast.success("Item Quantity Decrease", {
+            position: "top-right",
+          });
+          this.setState({ PageRefreshStatus: true });
+        } else {
+          cogoToast.error("Your Request is not done! Try it again", {
+            position: "top-right",
+          });
+        }
+      })
+      .catch((error) => {
+        cogoToast.error("Your Request is not done! Try it again", {
+          position: "top-right",
+        });
+      });
+  };
+  PageRefresh = () => {
+    if (this.state.PageRefreshStatus === true) {
+      let URL = window.location;
+      return <Redirect to={URL} />;
+    }
+  };
   render() {
     const CartList = this.state.ProductData;
     const MyView = CartList.map((productList, i) => {
@@ -47,8 +123,35 @@ class Cart extends Component {
                   </h6>
                 </Col>
                 <Col md={3} lg={3} sm={12} xs={12}>
-                  <Button className="btn btn-block w-100 mt-3  site-btn">
-                    <i className="fa fa-trash-alt"></i> Remove{" "}
+                  <Button
+                    className="btn mt-3 mx-1 btn-lg site-btn"
+                    onClick={() => this.removeItem(productList.id)}
+                  >
+                    <i className="fa fa-trash-alt"></i>{" "}
+                  </Button>
+                  <Button
+                    className="btn mt-3 mx-1 btn-lg site-btn"
+                    onClick={() =>
+                      this.ItemPlus(
+                        productList.id,
+                        productList.quantity,
+                        productList.unit_price
+                      )
+                    }
+                  >
+                    <i className="fa fa-plus"></i>{" "}
+                  </Button>
+                  <Button
+                    className="btn mt-3 mx-1 btn-lg site-btn"
+                    onClick={() =>
+                      this.ItemMinus(
+                        productList.id,
+                        productList.quantity,
+                        productList.total_price
+                      )
+                    }
+                  >
+                    <i className="fa fa-minus"></i>{" "}
                   </Button>
                 </Col>
               </Row>
@@ -85,6 +188,7 @@ class Cart extends Component {
             </Col> */}
           </Row>
         </Container>
+        {this.PageRefresh()}
       </Fragment>
     );
   }

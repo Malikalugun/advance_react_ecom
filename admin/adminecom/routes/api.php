@@ -55,3 +55,7 @@ Route::get('/favouriteslist/{email}', [FavouriteController::class, 'FavouriteLis
 Route::get('/favouriteRemove/{product_code}/{email}', [FavouriteController::class, 'FavouriteRemove']);
 // product cart list
 Route::get('/CartList/{email}', [ProductCartController::class, 'CartList']);
+// remove form cart
+Route::get("/removeCart/{id}", [ProductCartController::class, 'RemoveCartList']);
+Route::get("/cartitemplus/{id}/{quantity}/{total_price}", [ProductCartController::class, 'CartItemPlus']);
+Route::get("/cartitemminus/{id}/{quantity}/{total_price}", [ProductCartController::class, 'CartItemMinus']);
