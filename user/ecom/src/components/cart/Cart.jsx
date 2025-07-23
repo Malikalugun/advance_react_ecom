@@ -102,7 +102,9 @@ class Cart extends Component {
   };
   render() {
     const CartList = this.state.ProductData;
+    let totalPriceSum = 0;
     const MyView = CartList.map((productList, i) => {
+      totalPriceSum = totalPriceSum + parseInt(productList.total_price);
       return (
         <div>
           <Card>
@@ -162,30 +164,77 @@ class Cart extends Component {
     });
     return (
       <Fragment>
-        <Container>
+        <Container fluid={true}>
           <div className="section-title text-center mb-55">
             <h2>Product Cart List</h2>
           </div>
           <Row>
-            <Col className="p-1" lg={12} md={12} sm={12} xs={12}>
+            <Col className="p-1" lg={7} md={7} sm={12} xs={12}>
               {MyView}
             </Col>
-
-            {/* <Col className="p-1" lg={12} md={12} sm={12} xs={12}>
-              <Card>
-                <Card.Body>
-                  <Row>
-                    <Col md={4} lg={4} sm={6} xs={6}>
-                      <h5> Total Item = 05 </h5>
-                      <h5>Total Price = 5000$</h5>
-                      <Button className="btn btn-block w-100 mt-3  site-btn">
-                        <i className="fa fa-shopping-cart"></i> CheckOut{" "}
-                      </Button>
-                    </Col>
-                  </Row>
-                </Card.Body>
-              </Card>
-            </Col> */}
+            <Col className="p-1" lg={5} md={5} sm={12} xs={12}>
+              <div className="card p-2">
+                <div className="card-body">
+                  <div className="container-fluid ">
+                    <div className="row">
+                      <div className="col-md-12 p-1  col-lg-12 col-sm-12 col-12">
+                        <h5 className="Product-Name text-danger">
+                          Total Due: {totalPriceSum} $
+                        </h5>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+                        <label className="form-label">Choose City</label>
+                        <select className="form-control">
+                          <option value="">Choose</option>
+                          <option value="Dhaka">Assam</option>
+                          <option value="Dhaka">Bihar </option>
+                          <option value="Dhaka">Goa </option>
+                          <option value="Dhaka">Gujarat </option>
+                          <option value="Dhaka">Himachal Pradesh </option>
+                          <option value="Dhaka">Punjab </option>
+                        </select>
+                      </div>
+                      <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+                        <label className="form-label">
+                          Choose Payment Method
+                        </label>
+                        <select className="form-control">
+                          <option value="">Choose</option>
+                          <option value="Cash On Delivery">
+                            Cash On Delivery
+                          </option>
+                          <option value="Cash On Delivery">Stripe</option>
+                        </select>
+                      </div>
+                      <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+                        <label className="form-label">Your Name</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder=""
+                        />
+                      </div>
+                      <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+                        <label className="form-label">Delivery Address</label>
+                        <textarea
+                          rows={2}
+                          className="form-control"
+                          type="text"
+                          placeholder=""
+                        />
+                      </div>
+                      <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+                        <button className="btn  site-btn">
+                          Confirm Order{" "}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Col>
           </Row>
         </Container>
         {this.PageRefresh()}

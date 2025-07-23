@@ -59,3 +59,5 @@ Route::get('/CartList/{email}', [ProductCartController::class, 'CartList']);
 Route::get("/removeCart/{id}", [ProductCartController::class, 'RemoveCartList']);
 Route::get("/cartitemplus/{id}/{quantity}/{total_price}", [ProductCartController::class, 'CartItemPlus']);
 Route::get("/cartitemminus/{id}/{quantity}/{total_price}", [ProductCartController::class, 'CartItemMinus']);
+// cart order route
+Route::post('/cartorder', [ProductCartController::class, 'CartOrder']);
