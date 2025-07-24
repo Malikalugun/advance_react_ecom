@@ -74,6 +74,7 @@ class AppURL {
       this.BaseURL + "/cartitemminus/" + id + "/" + quantity + "/" + total_price
     );
   }
+  static CartOrder = this.BaseURL + "/cartorder";
 }
 
 export default AppURL;

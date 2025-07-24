@@ -12,7 +12,12 @@ class Cart extends Component {
       ProductData: [],
       inLoading: "",
       mainDiv: "d-none",
-      PageRefreshStatus: "false,",
+      PageRefreshStatus: "false",
+      confirmBtn: "Confirm Order",
+      city: "",
+      payment: "",
+      name: "",
+      address: "",
     };
   }
   componentDidMount() {
@@ -98,6 +103,40 @@ class Cart extends Component {
     if (this.state.PageRefreshStatus === true) {
       let URL = window.location;
       return <Redirect to={URL} />;
+    }
+  };
+  cityOnChange = (event) => {
+    let city = event.target.value;
+    this.setState({ city: city });
+  };
+  paymentOnChange = (event) => {
+    let payment = event.target.value;
+    this.setState({
+      payment: payment,
+    });
+  };
+  nameOnChange = (event) => {
+    let name = event.target.value;
+    this.setState({ name: name });
+  };
+  addressOnChange = (event) => {
+    let address = event.target.value;
+    this.setState({ address: address });
+  };
+  confirmOnClick = () => {
+    let city = this.state.city;
+    let payement = this.state.payment;
+    let name = this.state.name;
+    let address = this.state.address;
+    let email = this.props.user.email;
+    if (city.length === 0) {
+      cogoToast.error("Please select City ", { position: "top-right" });
+    } else if (payement.length === 0) {
+      cogoToast.error("Please select Payment ", { position: "top-right" });
+    } else if (name.length === 0) {
+      cogoToast.error("Please enter your Name ", { position: "top-right" });
+    } else if (address.length === 0) {
+      cogoToast.error("Please enter your Address ", { position: "top-right" });
     }
   };
   render() {
@@ -186,7 +225,10 @@ class Cart extends Component {
                     <div className="row">
                       <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
                         <label className="form-label">Choose City</label>
-                        <select className="form-control">
+                        <select
+                          className="form-control"
+                          onChange={this.cityOnChange}
+                        >
                           <option value="">Choose</option>
                           <option value="Dhaka">Assam</option>
                           <option value="Dhaka">Bihar </option>
@@ -200,7 +242,10 @@ class Cart extends Component {
                         <label className="form-label">
                           Choose Payment Method
                         </label>
-                        <select className="form-control">
+                        <select
+                          className="form-control"
+                          onChange={this.paymentOnChange}
+                        >
                           <option value="">Choose</option>
                           <option value="Cash On Delivery">
                             Cash On Delivery
@@ -214,6 +259,7 @@ class Cart extends Component {
                           className="form-control"
                           type="text"
                           placeholder=""
+                          onChange={this.nameOnChange}
                         />
                       </div>
                       <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
@@ -223,11 +269,15 @@ class Cart extends Component {
                           className="form-control"
                           type="text"
                           placeholder=""
+                          onChange={this.addressOnChange}
                         />
                       </div>
                       <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
-                        <button className="btn  site-btn">
-                          Confirm Order{" "}
+                        <button
+                          className="btn  site-btn"
+                          onClick={this.confirmOnClick}
+                        >
+                          {this.state.confirmBtn}
                         </button>
                       </div>
                     </div>
