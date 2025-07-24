@@ -21,13 +21,27 @@ class NavMenuDesktop extends Component {
     this.SeachOnClick = this.SeachOnClick.bind(this);
     this.searchRedirect = this.searchRedirect.bind(this);
   }
-  componentDidMount() {
-    let product_code = this.props.product_code;
+  // componentDidMount() {
+  //   let email = this.props.email;
 
-    axios.get(AppURL.CartCount(product_code)).then((response) => {
-      console.log("API data:", response.data);
-      this.setState({ cartCount: response.data });
-    });
+  //   axios.get(AppURL.CartCount(email)).then((response) => {
+  //     console.log("API data:", response.data);
+  //     this.setState({ cartCount: response.data });
+  //   });
+  // }
+  componentDidMount() {
+    const email = this.props.user?.email;
+
+    if (email) {
+      axios
+        .get(AppURL.CartCount(email))
+        .then((response) => {
+          this.setState({ cartCount: response.data });
+        })
+        .catch((error) => {
+          console.error("Cart count fetch failed:", error);
+        });
+    }
   }
 
   logout = () => {

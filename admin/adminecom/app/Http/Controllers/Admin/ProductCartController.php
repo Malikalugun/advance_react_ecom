@@ -40,12 +40,23 @@ class ProductCartController extends Controller
         ]);
         return $result;
     }
-    public function CartCount(Request $request, $product_code)
+    // public function CartCount(Request $request, $product_code)
+    // {
+    //     $email = $request->input('email');
+    //     $result = ProductCart::where('email', $email)
+    //         ->where('product_code', $product_code)
+    //         ->count();
+    //     dd($result);
+    //     return $result;
+    // }
+    public function CartCount($email)
     {
-        $product_code = $request->email;
-        $result = ProductCart::count();
+        $result = ProductCart::where('email', $email)->count();
+
         return $result;
     }
+
+
     public function CartList(Request $request)
     {
         $email = $request->email;
@@ -86,13 +97,19 @@ class ProductCartController extends Controller
         $email = $request->input('email');
         $delivery_address = $request->input('delivery_address');
         $invoice_no = $request->input('invoice_no');
-        $delivery_charge = $request->input('deliver_charge');
-        date_default_timezone_set("Asia/India");
+        $delivery_charge = $request->input('delivery_charge');
+        date_default_timezone_set("Asia/Dhaka");
         $request_time = date("h:i:sa");
         $request_date = date("d-m-y");
+        $cartInsertDeleteResult = 0;
         $CartList = ProductCart::where('email', $email)->get();
+
+        if ($CartList->isEmpty()) {
+            return response()->json(['message' => 'Cart is empty'], 400);
+        }
+
         foreach ($CartList as $cartListItem) {
-            $cartInsertDeleteResult = '';
+
             $resultInsert = CartOrder::insert([
                 'invoice_no' => "Easy" . $invoice_no,
                 'product_name' => $cartListItem['product_name'],
@@ -105,7 +122,7 @@ class ProductCartController extends Controller
                 'email' => $cartListItem['email'],
                 'name' => $yourname,
                 'payment_method' => $payment_method,
-                'deliver_address' => $delivery_address,
+                'delivery_address' => $delivery_address,
                 'city' => $city,
                 'delivery_charge' => $delivery_charge,
                 'order_date' => $request_date,

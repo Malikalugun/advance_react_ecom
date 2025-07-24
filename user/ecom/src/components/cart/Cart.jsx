@@ -12,7 +12,8 @@ class Cart extends Component {
       ProductData: [],
       inLoading: "",
       mainDiv: "d-none",
-      PageRefreshStatus: "false",
+      PageRefreshStatus: false,
+      PageRedirectStatus: false,
       confirmBtn: "Confirm Order",
       city: "",
       payment: "",
@@ -125,20 +126,55 @@ class Cart extends Component {
   };
   confirmOnClick = () => {
     let city = this.state.city;
-    let payement = this.state.payment;
+    let payment = this.state.payment;
     let name = this.state.name;
     let address = this.state.address;
     let email = this.props.user.email;
     if (city.length === 0) {
       cogoToast.error("Please select City ", { position: "top-right" });
-    } else if (payement.length === 0) {
+    } else if (payment.length === 0) {
       cogoToast.error("Please select Payment ", { position: "top-right" });
     } else if (name.length === 0) {
       cogoToast.error("Please enter your Name ", { position: "top-right" });
     } else if (address.length === 0) {
       cogoToast.error("Please enter your Address ", { position: "top-right" });
+    } else {
+      let invoice = new Date().getTime();
+      let MyFormData = new FormData();
+      MyFormData.append("city", city);
+      MyFormData.append("payment_method", payment);
+      MyFormData.append("name", name);
+      MyFormData.append("delivery_address", address);
+      MyFormData.append("email", email);
+      MyFormData.append("invoice_no", invoice);
+      MyFormData.append("delivery_charge", "00");
+      axios
+        .post(AppURL.CartOrder, MyFormData)
+        .then((response) => {
+          if (response.data === 1) {
+            cogoToast.success("Order Request Received", {
+              position: "top-right",
+            });
+            this.setState({ PageRedirectStatus: true });
+          } else {
+            cogoToast.error("Your Request is not done ! Try Again", {
+              position: "top-right",
+            });
+          }
+        })
+        .catch((error) => {
+          cogoToast.error("Your Request is not done ! Try Again", {
+            position: "top-right",
+          });
+        });
     }
   };
+  PageRedirect = () => {
+    if (this.state.PageRedirectStatus === true) {
+      return <Redirect to="/orderlist" />;
+    }
+  };
+
   render() {
     const CartList = this.state.ProductData;
     let totalPriceSum = 0;
@@ -230,12 +266,14 @@ class Cart extends Component {
                           onChange={this.cityOnChange}
                         >
                           <option value="">Choose</option>
-                          <option value="Dhaka">Assam</option>
-                          <option value="Dhaka">Bihar </option>
-                          <option value="Dhaka">Goa </option>
-                          <option value="Dhaka">Gujarat </option>
-                          <option value="Dhaka">Himachal Pradesh </option>
-                          <option value="Dhaka">Punjab </option>
+                          <option value="Assam">Assam</option>
+                          <option value="Bihar">Bihar </option>
+                          <option value="Goa">Goa </option>
+                          <option value="Gujarat">Gujarat </option>
+                          <option value="Himachal Pradesh">
+                            Himachal Pradesh{" "}
+                          </option>
+                          <option value="Punjab">Punjab </option>
                         </select>
                       </div>
                       <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
@@ -250,7 +288,7 @@ class Cart extends Component {
                           <option value="Cash On Delivery">
                             Cash On Delivery
                           </option>
-                          <option value="Cash On Delivery">Stripe</option>
+                          <option value="Stripe">Stripe</option>
                         </select>
                       </div>
                       <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
@@ -288,6 +326,7 @@ class Cart extends Component {
           </Row>
         </Container>
         {this.PageRefresh()}
+        {this.PageRedirect()}
       </Fragment>
     );
   }
