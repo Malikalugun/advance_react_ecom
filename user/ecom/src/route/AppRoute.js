@@ -49,7 +49,6 @@ class AppRoute extends Component {
     return (
       <Fragment>
         <NavMenuDesktop user={this.state.user} setUser={this.setUser} />
-
         <Switch>
           <Route
             exact

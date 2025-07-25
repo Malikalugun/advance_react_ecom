@@ -21,27 +21,16 @@ class NavMenuDesktop extends Component {
     this.SeachOnClick = this.SeachOnClick.bind(this);
     this.searchRedirect = this.searchRedirect.bind(this);
   }
-  // componentDidMount() {
-  //   let email = this.props.email;
 
-  //   axios.get(AppURL.CartCount(email)).then((response) => {
-  //     console.log("API data:", response.data);
-  //     this.setState({ cartCount: response.data });
-  //   });
-  // }
   componentDidMount() {
-    const email = this.props.user?.email;
+    const productCodeItem = this.props.product_code;
 
-    if (email) {
-      axios
-        .get(AppURL.CartCount(email))
-        .then((response) => {
-          this.setState({ cartCount: response.data });
-        })
-        .catch((error) => {
-          console.error("Cart count fetch failed:", error);
-        });
-    }
+    console.log("product_code:", productCodeItem);
+
+    axios.get(AppURL.CartCount(productCodeItem)).then((response) => {
+      console.log("Cart API response:", response.data);
+      this.setState({ cartCount: response.data });
+    });
   }
 
   logout = () => {
@@ -115,7 +104,6 @@ class NavMenuDesktop extends Component {
           <Button to="/" onClick={this.logout} className="h4 btn">
             LOGOUT
           </Button>
-
           <Link to="/cart" className="cart-btn">
             <i className="fa fa-shopping-cart"></i> {this.state.cartCount} Items
           </Link>
