@@ -17,6 +17,7 @@ use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\ForgetController;
 use App\Http\Controllers\User\ResetController;
 use App\Http\Controllers\User\UserController;
+
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
@@ -62,3 +63,4 @@ Route::get("/cartitemminus/{id}/{quantity}/{total_price}", [ProductCartControlle
 // cart order route
 Route::post('/cartorder', [ProductCartController::class, 'CartOrder']);
 Route::get("/orderlistbyuser/{email}", [ProductCartController::class, 'OrderListByUser']);
+Route::post("/postreview", [ProductReviewController::class, 'PostReview']);
