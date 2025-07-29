@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import AppURL from "../../api/AppURL";
 import axios from "axios";
 import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
-
 export class OrderList extends Component {
   constructor() {
     super();
@@ -74,7 +73,7 @@ export class OrderList extends Component {
       <Fragment>
         <Container>
           <div className="section-title text-center mb-4">
-            <h2>Product Order History</h2>
+            <h2>Product Order History By ({this.props.user.name})</h2>
           </div>
           <Row>{MyView}</Row>
         </Container>
