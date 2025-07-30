@@ -3,6 +3,7 @@ import AppURL from "../../api/AppURL";
 import axios from "axios";
 import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
 import cogoToast from "cogo-toast";
+import { Redirect } from "react-router";
 export class OrderList extends Component {
   constructor() {
     super();
@@ -102,6 +103,9 @@ export class OrderList extends Component {
     }
   };
   render() {
+    if (!localStorage.getItem("token")) {
+      return <Redirect to="/login" />;
+    }
     const MyList = this.state.ProductData;
 
     const MyView = MyList.map((productList, i) => (

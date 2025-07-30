@@ -26,6 +26,8 @@ class ProductDetails extends Component {
       addToCart: "Add To Cart",
       PageRefreshStatus: false,
       addToFav: "Favourite",
+      OrderNow: "Order Now",
+      PageRedirectStatus: false,
     };
   }
 
@@ -76,7 +78,6 @@ class ProductDetails extends Component {
               position: "top-right",
             });
             this.setState({ addToCart: "Add To Cart" });
-            this.setState({ PageRefreshStatus: true });
           }
         })
         .catch((error) => {
@@ -84,10 +85,16 @@ class ProductDetails extends Component {
             position: "top-right",
           });
           this.setState({ addToCart: "Add To Cart" });
-          this.setState({ PageRefreshStatus: true });
         });
     }
-  }; /// End addToCart Mehtod
+  };
+  PageRefresh = () => {
+    if (this.PageRefreshStatus === true) {
+      let URL = window.location;
+      return <Redirect to={URL} />;
+    }
+  };
+  /// End addToCart Mehtod
   // add to fav
   addToFav = () => {
     this.setState({ addToFav: "Adding..." });
@@ -121,6 +128,65 @@ class ProductDetails extends Component {
         });
     }
   };
+  // order now
+  orderNow = () => {
+    let isSize = this.state.isSize;
+    let isColor = this.state.isColor;
+    let color = this.state.color;
+    let size = this.state.size;
+    let quantity = this.state.quantity;
+    let productCode = this.state.productCode;
+    let email = this.props.user.email;
+
+    if (isColor === "YES" && color.length === 0) {
+      cogoToast.error("Please Select Color", { position: "top-right" });
+    } else if (isSize === "YES" && size.length === 0) {
+      cogoToast.error("Please Select Size", { position: "top-right" });
+    } else if (quantity.length === 0) {
+      cogoToast.error("Please Select Quantity", { position: "top-right" });
+    } else if (!localStorage.getItem("token")) {
+      cogoToast.warn("Please You have to Login First", {
+        position: "top-right",
+      });
+    } else {
+      this.setState({ OrderNow: "Adding..." });
+      let MyFormData = new FormData();
+      MyFormData.append("color", color);
+      MyFormData.append("size", size);
+      MyFormData.append("quantity", quantity);
+      MyFormData.append("product_code", productCode);
+      MyFormData.append("email", email);
+
+      axios
+        .post(AppURL.addToCart, MyFormData)
+        .then((response) => {
+          if (response.data === 1) {
+            cogoToast.success("Product Added Successfully", {
+              position: "top-right",
+            });
+            this.setState({ OrderNow: "Order Now" });
+            this.setState({ PageRedirectStatus: true });
+          } else {
+            cogoToast.error("Your Request is not done ! Try Aagain", {
+              position: "top-right",
+            });
+            this.setState({ OrderNow: "Order Now" });
+          }
+        })
+        .catch((error) => {
+          cogoToast.error("Your Request is not done ! Try Aagain", {
+            position: "top-right",
+          });
+          this.setState({ OrderNow: "Order Now" });
+        });
+    }
+  };
+  PageRedirect = () => {
+    if (this.state.PageRedirectStatus === true) {
+      return <Redirect to="/cart" />;
+    }
+  };
+
   colorOnChange = (event) => {
     let color = event.target.value;
     // alert(color);
@@ -390,9 +456,12 @@ class ProductDetails extends Component {
                       {this.state.addToCart}{" "}
                     </button>
 
-                    <button className="btn btn-primary m-1">
+                    <button
+                      className="btn btn-primary m-1"
+                      onClick={this.orderNow}
+                    >
                       {" "}
-                      <i className="fa fa-car"></i> Order Now
+                      <i className="fa fa-car"></i> {this.state.OrderNow}
                     </button>
                     <button
                       className="btn btn-primary m-1"
@@ -419,6 +488,8 @@ class ProductDetails extends Component {
           </Row>
         </Container>
         <SuggestedProduct subcategory={subcategory} />
+        {this.PageRefresh()}
+        {this.PageRedirect()}
       </Fragment>
     );
   }
