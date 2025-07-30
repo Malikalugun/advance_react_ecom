@@ -44,8 +44,7 @@ Route::get('/notification', [NotificationController::class, 'NotificationHistory
 Route::get('/search/{key}', [ProductListController::class, 'ProductBySearch']);
 // similar product 
 Route::get('/similar/{subcategory}', [ProductListController::class, 'SimilarProduct']);
-// review list
-Route::get('/reviewlist/{id}', [ProductReviewController::class, 'ReviewList']);
+
 // product cart 
 Route::post('/addtocart', [ProductCartController::class, 'AddToCart']);
 //  product count
@@ -63,4 +62,6 @@ Route::get("/cartitemminus/{id}/{quantity}/{total_price}", [ProductCartControlle
 // cart order route
 Route::post('/cartorder', [ProductCartController::class, 'CartOrder']);
 Route::get("/orderlistbyuser/{email}", [ProductCartController::class, 'OrderListByUser']);
+// review list
+Route::get('/reviewlist/{product_code}', [ProductReviewController::class, 'ReviewList']);
 Route::post("/postreview", [ProductReviewController::class, 'PostReview']);
