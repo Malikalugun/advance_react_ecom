@@ -1,0 +1,192 @@
+@media(max-width:1440px){
+      .stats-grid.stats-gridcustomer-details{
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    }
+}
+@media(max-width:1200px){
+    .teamcard .dot {
+    width: 12px;
+    height: 2px;
+    }
+  
+}
+@media(max-width:992px){
+    .map-section {
+    min-width: 100%!important;
+    }
+   
+}
+@media (max-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: -250px;
+    transition: margin 0.3s ease-out;
+  }
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+  }
+  .sidebar {
+    position: fixed;
+    height: 100%;
+    z-index: 1040;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  .sidebar.show {
+    transform: translateX(0);
+  }
+ .stat-box {
+        flex: 1 1 100%;
+    }
+ .btnadminpanel{
+  display: block;
+font-size: 1.2rem;
+
+}
+.sidebar h5{
+color: var(--white);
+}
+ .stat-card {
+    margin-bottom: 12px;
+    }
+}
+@media (max-width: 576px) {
+  .modal-dialog {
+    margin: 1rem;
+  }
+  .modal-content {
+    padding: 10px;
+  }
+}
+@media (max-width: 500px) {
+  .order-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .order-list li .price {
+    margin-top: 4px;
+    text-align: left;
+  }
+  .goal-card {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+}
+/* orderlist end  */
+@media (max-width: 500px) {
+  .countlist {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .countlist .amount {
+    text-align: left;
+    margin-top: 5px;
+  }
+  .progress-container {
+    width: 100%;
+  }
+   .order-status-container .order-actions .address {
+    margin-bottom: 8px;
+ }
+ .chat-wrapper .chat-header {
+    padding: 20px;
+    display: block;
+ }
+}
+@media(max-width:450px){
+    .search-bar {
+    width: 255px;
+    }
+     .order-info-card .info-item {
+    display: block;
+   
+ }
+
+  
+}
+@media(max-width:425px){
+        .search-bar {
+        width: 200px;
+    }
+    .chat-wrapper .chat-input {
+        padding: 0;
+    }
+    .teamcard .team-name {
+    font-size: 18px;
+    }
+    .project-card .footer
+    {
+        padding: 6px 20px;
+    }
+    .right-project-create .avatars
+{
+    padding: 0px 12px;
+}
+.stats-grid.stats-gridcustomer-details {
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+}
+.task-container .create-btn
+ {
+    padding: 7px 14px;
+ }
+}
+@media(max-width:375px){
+        .search-bar {
+        width: 180px;
+    }
+    .search-bar input.form-control {
+    padding-left: 30px;
+    padding-right: 4px;
+    height: 35px;
+    }
+    .topmenuadmin .dropdown img{
+width: 24px;
+
+    }
+    .dropdown.notification-menu i{
+font-size: 1rem;
+    }
+    .dropdown.notification-menu .rounded-circle {
+    width: 24px;
+    height: 24px;
+    }
+    .notification-menu .badge {
+    font-size: 8px;
+    padding: 3px 5px;
+}
+.gap-3.topmenuadmin{
+gap:12px!important
+}
+.card {
+
+    padding: 6px;
+}
+.profilepage .profile-left {
+    display: block;
+}
+.avatar-wrapper {
+    margin-bottom: 14px;
+}
+.profilepage .profile-card {
+    padding: 0;
+}
+.personal-info-card .social .icon {
+   
+    height: 28px;
+}
+.change-password-form .form-actions button {
+    padding: 8px 15px;
+    font-size: 12px;
+}
+.chat-wrapper .message .bubble
+ {
+    max-width: 100%;
+ }
+ .teamcard .message-btn
+ {
+    padding: 6px 20px;
+ }
+}
