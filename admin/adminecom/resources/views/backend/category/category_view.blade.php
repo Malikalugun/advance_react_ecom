@@ -32,8 +32,8 @@
                         <td> {{$item->category_name}}</td>
                         
                         <td class="action-icons">
-                       <a href="" > <i class="fas fa-pen"></i></a>
-                        <a href=""><i class="fas fa-trash"></i> </a>
+                       <a href="{{route('category.edit',$item->id)}}" > <i class="fas fa-pen"></i></a>
+                        <a href="{{route('category.delete',$item->id)}}" id="delete"><i class="fas fa-trash"></i> </a>
                         </td>
                     </tr>
                   

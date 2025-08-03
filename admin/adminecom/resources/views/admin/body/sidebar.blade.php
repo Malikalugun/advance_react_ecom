@@ -23,7 +23,7 @@
          <div class="collapse" id="applicationsMenu">
             <ul class="nav flex-column ms-3">
                <li class="nav-item"><a class="nav-link" href="{{route('all.category')}}"><i class="fas fa-comments me-2"></i> All Category</a></li>
-               <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-address-book me-2"></i> Add Category</a></li>
+               <li class="nav-item"><a class="nav-link" href="{{route('add.category')}}"><i class="fas fa-address-book me-2"></i> Add Category</a></li>
               
             </ul>
          </div>
