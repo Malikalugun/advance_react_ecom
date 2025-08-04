@@ -15,12 +15,13 @@
             <i class="fas fa-chart-line me-2"></i> Dashboards
          </a>
       </li>
+      {{-- category --}}
       <li class="nav-item">
-         <a class="nav-link" data-bs-toggle="collapse" href="#applicationsMenu" role="button" aria-expanded="false" aria-controls="applicationsMenu">
+         <a class="nav-link" data-bs-toggle="collapse" href="#categoryMenu" role="button" aria-expanded="false" aria-controls="categoryMenu">
             <i class="fas fa-th me-2"></i> Category
             <i class="fas fa-chevron-down ms-auto"></i>
          </a>
-         <div class="collapse" id="applicationsMenu">
+         <div class="collapse" id="categoryMenu">
             <ul class="nav flex-column ms-3">
                <li class="nav-item"><a class="nav-link" href="{{route('all.category')}}"><i class="fas fa-comments me-2"></i> All Category</a></li>
                <li class="nav-item"><a class="nav-link" href="{{route('add.category')}}"><i class="fas fa-address-book me-2"></i> Add Category</a></li>
@@ -28,8 +29,36 @@
             </ul>
          </div>
       </li>
-    
+    {{-- subcategory  --}}
+    <li class="nav-item">
+         <a class="nav-link" data-bs-toggle="collapse" href="#subcategoryMenu" role="button" aria-expanded="false" aria-controls="subcategoryMenu">
+            <i class="fas fa-th me-2"></i> Sub Category
+            <i class="fas fa-chevron-down ms-auto"></i>
+         </a>
+         <div class="collapse" id="subcategoryMenu">
+            <ul class="nav flex-column ms-3">
+               <li class="nav-item"><a class="nav-link" href="{{route('all.subcategory')}}"><i class="fas fa-comments me-2"></i> All SubCategory</a></li>
+               <li class="nav-item"><a class="nav-link" href="{{route('add.subcategory')}}"><i class="fas fa-address-book me-2"></i> Add SubCategory</a></li>
+              
+            </ul>
+         </div>
+      </li>
       <!-- Forms Dropdown -->
+      {{-- slide start --}}
+       <li class="nav-item">
+         <a class="nav-link" data-bs-toggle="collapse" href="#sliderMenu" role="button" aria-expanded="false" aria-controls="sliderMenu">
+            <i class="fas fa-th me-2"></i> Slider
+            <i class="fas fa-chevron-down ms-auto"></i>
+         </a>
+         <div class="collapse" id="sliderMenu">
+            <ul class="nav flex-column ms-3">
+               <li class="nav-item"><a class="nav-link" href="{{route('all.slider')}}"><i class="fas fa-comments me-2"></i> All Slider</a></li>
+               <li class="nav-item"><a class="nav-link" href="{{route('add.slider')}}"><i class="fas fa-address-book me-2"></i> Add Slider</a></li>
+              
+            </ul>
+         </div>
+      </li>
+      {{-- end --}}
       <li class="nav-item">
          <a class="nav-link" data-bs-toggle="collapse" href="#formsMenu" role="button" aria-expanded="false" aria-controls="formsMenu">
             <i class="fas fa-file-alt me-2"></i> Forms

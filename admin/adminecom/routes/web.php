@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\HomeSliderController;
 use App\Http\Controllers\AdminController;
+use App\Models\HomeSlider;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,4 +32,20 @@ Route::prefix('category')->group(function () {
     Route::get('/edit/{id}', [CategoryController::class, 'EditCategory'])->name('category.edit');
     Route::post('/update', [CategoryController::class, 'UpdateCategory'])->name('category.update');
     Route::get('/delete/{id}', [CategoryController::class, 'DeleteCategory'])->name('category.delete');
+});
+Route::prefix('subcategory')->group(function () {
+    Route::get('/all', [CategoryController::class, 'AllSubCategory'])->name('all.subcategory');
+    Route::get('/add', [CategoryController::class, 'AddSubCategory'])->name('add.subcategory');
+    Route::post('/store', [CategoryController::class, 'StoreSubCategory'])->name('subcategory.store');
+    Route::get('/edit/{id}', [CategoryController::class, 'EditSubCategory'])->name('subcategory.edit');
+    Route::post('update', [CategoryController::class, 'UpdateSubCategory'])->name('subcategory.update');
+    Route::get('/delete/{id}', [CategoryController::class, 'DeleteSubCategory'])->name('subcategory.delete');
+});
+Route::prefix('slider')->group(function () {
+    Route::get('/all', [HomeSliderController::class, 'AllSliderView'])->name('all.slider');
+    Route::get('/add', [HomeSliderController::class, 'AddSlider'])->name('add.slider');
+    Route::post('/store', [HomeSliderController::class, 'StoreSlider'])->name('slider.store');
+    Route::get('/editr/{id}', [HomeSliderController::class, 'EditSlider'])->name('slider.edit');
+    Route::post('/update', [HomeSliderController::class, 'UpdateSlider'])->name('slider.update');
+    Route::get('/delete/{id}', [HomeSliderController::class, 'DeleteSlider'])->name('slider.delete');
 });

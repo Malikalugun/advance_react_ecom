@@ -45,10 +45,6 @@ class CategoryController extends Controller
         ], [
             'category_name' => 'Input Category Name'
         ]);
-        // $image = $request->file('category_image');
-        // $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-        // Image::make($image)->resize(128, 128)->save('uplade/category/' . $name_gen);
-        // $save_url = 'http://127.0.0.1:8000/upload/category/' . $name_gen;
         $imageFile = $request->file('category_image');
         $name_gen = hexdec(uniqid()) . '.' . $imageFile->getClientOriginalExtension();
         $save_path = public_path('upload/category/' . $name_gen);
@@ -115,6 +111,62 @@ class CategoryController extends Controller
         $notification = array(
             'message' => 'Category deleted successfully',
             'alert-type' => 'error'
+        );
+        return redirect()->back()->with($notification);
+    }
+    // subcategory
+    public function AllSubCategory()
+    {
+        $subcategory = Subcategory::latest()->get();
+        return view('backend.subcategory.subcategory_view', compact('subcategory'));
+    }
+    public function AddSubCategory()
+    {
+        $category = Category::latest()->get();
+        return view('backend.subcategory.subcategory_add', compact('category'));
+    }
+    public function StoreSubCategory(Request $request)
+    {
+        $validate = $request->validate([
+            'subcategory_name' => 'required',
+        ], [
+            'subcategory_name.required' => 'Input Subcategory Name'
+        ]);
+        Subcategory::insert([
+            'category_name' => $request->category_name,
+            'subcategory_name' => $request->subcategory_name,
+        ]);
+        $notification = array(
+            'message' => 'Data Inserted successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.subcategory')->with($notification);
+    }
+    public function EditSubCategory($id)
+    {
+        $category = Category::orderBy('category_name', 'ASC')->get();
+        $subcategory = Subcategory::findOrFail($id);
+        return view('backend.subcategory.subcategory_edit', compact('category', 'subcategory'));
+    }
+    public function UpdateSubCategory(Request $request)
+    {
+        $subcategory = $request->id;
+        Subcategory::findOrFail($subcategory)->update([
+            'category_name' => $request->category_name,
+            'subcategory_name' => $request->subcategory_name
+        ]);
+        $notification = array(
+            'message' => 'Data Updated successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.subcategory')->with($notification);
+    }
+    public function DeleteSubCategory($id)
+    {
+        Subcategory::findOrFail($id)->delete();
+        $notification = array(
+            'message' => 'Data Deleted successfully',
+            'alert-type' => 'errro'
         );
         return redirect()->back()->with($notification);
     }
