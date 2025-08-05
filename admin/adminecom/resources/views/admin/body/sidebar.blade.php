@@ -67,9 +67,7 @@
          <div class="collapse" id="formsMenu">
             <ul class="nav flex-column ms-3">
                <li class="nav-item"><a class="nav-link" href="{{route('all.product')}}">All Product</a></li>
-               <li class="nav-item"><a class="nav-link" href="#">Validation</a></li>
-               <li class="nav-item"><a class="nav-link" href="#">Wizards</a></li>
-               <li class="nav-item"><a class="nav-link" href="#">File Upload</a></li>
+               <li class="nav-item"><a class="nav-link" href="{{route('add.product')}}">Add Product</a></li>
             </ul>
          </div>
       </li>
