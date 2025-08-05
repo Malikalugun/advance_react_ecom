@@ -61,12 +61,12 @@
       {{-- end --}}
       <li class="nav-item">
          <a class="nav-link" data-bs-toggle="collapse" href="#formsMenu" role="button" aria-expanded="false" aria-controls="formsMenu">
-            <i class="fas fa-file-alt me-2"></i> Forms
+            <i class="fas fa-file-alt me-2"></i> Product
             <i class="fas fa-chevron-down ms-auto"></i>
          </a>
          <div class="collapse" id="formsMenu">
             <ul class="nav flex-column ms-3">
-               <li class="nav-item"><a class="nav-link" href="#">Form Elements</a></li>
+               <li class="nav-item"><a class="nav-link" href="{{route('all.product')}}">All Product</a></li>
                <li class="nav-item"><a class="nav-link" href="#">Validation</a></li>
                <li class="nav-item"><a class="nav-link" href="#">Wizards</a></li>
                <li class="nav-item"><a class="nav-link" href="#">File Upload</a></li>

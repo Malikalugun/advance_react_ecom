@@ -26,19 +26,14 @@
                         <td>
                         <div class="d-flex align-items-center productflex">
                             <img src={{$item->slider_image}} class="product-img" alt="History Book">
-
                         </div>
                         </td>
-                       
-                        
                         <td class="action-icons">
                        <a href="{{route('slider.edit',$item->id)}}" > <i class="fas fa-pen"></i></a>
                         <a href="{{route('slider.delete',$item->id)}}" id="delete"><i class="fas fa-trash"></i> </a>
                         </td>
-                    </tr>
-                  
-                    @endforeach
-                   
+                    </tr>                  
+                    @endforeach                  
                 </tbody>
             </table>
             </div>

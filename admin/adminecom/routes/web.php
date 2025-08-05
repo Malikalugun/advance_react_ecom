@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeSliderController;
+use App\Http\Controllers\Admin\ProductListController;
 use App\Http\Controllers\AdminController;
 use App\Models\HomeSlider;
 use Illuminate\Support\Facades\Route;
@@ -48,4 +49,7 @@ Route::prefix('slider')->group(function () {
     Route::get('/editr/{id}', [HomeSliderController::class, 'EditSlider'])->name('slider.edit');
     Route::post('/update', [HomeSliderController::class, 'UpdateSlider'])->name('slider.update');
     Route::get('/delete/{id}', [HomeSliderController::class, 'DeleteSlider'])->name('slider.delete');
+});
+Route::prefix('product')->group(function () {
+    Route::get('/all', [ProductListController::class, 'GetAllProduct'])->name('all.product');
 });

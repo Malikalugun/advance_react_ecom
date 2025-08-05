@@ -40,4 +40,10 @@ class ProductListController extends Controller
         $productlist = ProductList::where('subcategory', $subcategory)->orderBy('id', 'desc')->limit(6)->get();
         return $productlist;
     } // End Method 
+    // get all product
+    public function GetAllProduct()
+    {
+        $product = ProductList::latest()->paginate(6);
+        return view('backend.product.product_all', compact('product'));
+    }
 }
