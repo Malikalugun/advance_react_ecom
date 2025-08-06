@@ -1674,7 +1674,8 @@ blockquote footer {
     margin-top: 5px;
 }
 .form-container .form-group input,
-.form-container .form-group select {
+.form-container .form-group select,
+.form-container .form-group textarea {
     width: 100%;
     padding: 10px 12px 10px 40px;
     font-size: 15px;
@@ -3731,3 +3732,36 @@ select {
     color: var(--Dodger-Blue);
 }
 /* login register end */
+.tagify__tag {
+    color: #fff !important;
+}
+
+/* 1. Main input element */
+#colorTags {
+    width: 100%;
+}
+
+/* 2. Tagify container */
+.tagify {
+    width: 100% !important;
+    max-width: 100%;
+    display: block;
+}
+
+/* 3. Internal input wrapper */
+.tagify__input {
+    flex-grow: 1;
+    display: inline-block;
+    min-width: 100%;
+    /* optional: increase to fit */
+    white-space: nowrap;
+}
+
+.editorcontainer {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+#editor {
+    height: 200px;
+}
