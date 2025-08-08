@@ -11,10 +11,31 @@
       <link href="{{asset('backend/assets/css/style.css')}}" rel="stylesheet"/>
       <link href="{{asset('backend/assets/css/responsive.css')}}" rel="stylesheet"/>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
-      <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.css" rel="stylesheet">
+<style>
+.bootstrap-tagsinput {
+    width: 100%;
+    min-height: 40px;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    line-height: 22px;
+}
+.bootstrap-tagsinput .tag {
+    margin-right: 2px;
+    color: white;
+    background-color: #007bff;
+    padding: 3px 7px;
+    border-radius: 3px;
+}
+.note-toolbar {
+    display: block !important;
+    visibility: visible !important;
+}
+</style>
 
    </head>
    <body>
@@ -45,31 +66,49 @@
          </div>
       </div>
       @include('admin.body.footer')
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- jQuery -->
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}
+
+<!-- Toastr JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-      <script>
-         @if(Session::has('message'))
-         var type = "{{ Session::get('alert-type','info') }}"
-         switch(type){
-            case 'info':
-            toastr.info(" {{ Session::get('message') }} ");
-            break;
-         
-            case 'success':
-            toastr.success(" {{ Session::get('message') }} ");
-            break;
-         
-            case 'warning':
-            toastr.warning(" {{ Session::get('message') }} ");
-            break;
-         
-            case 'error':
-            toastr.error(" {{ Session::get('message') }} ");
-            break; 
-         }
-         @endif 
-      </script>
+
+<!-- Bootstrap Tags Input -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+
+<!-- Summernote JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.js"></script>
+
+<!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+ {{-- <script>
+    $(document).ready(function() {
+      $('#summernote').summernote({
+        height: 300,
+        placeholder: 'Write something...'
+      });
+    });
+  </script> --}}
+  <script>
+   $(document).ready(function() {
+  $('#summernote').summernote({
+    height: 300,
+    placeholder: 'Write something...',
+    toolbar: [
+      ['style', ['style']],
+      ['font', ['bold', 'italic', 'underline', 'clear']],
+      ['fontname', ['fontname']],
+      ['fontsize', ['fontsize']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['height', ['height']],
+      ['insert', ['link', 'picture', 'video']],
+      ['view', ['fullscreen', 'codeview', 'help']]
+    ]
+  });
+});
+
+  </script>
 <script type="text/javascript">
 $(function(){
     $(document).on('click','#delete',function(e){
@@ -99,64 +138,27 @@ $(function(){
 
 	
 </script>
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-        <script>
-            // Initialize Quill editor
-            const quill = new Quill('#editor', {
-                modules: {
-                    toolbar: '#toolbar'
-                },
-                theme: 'snow'
-            });
-        </script>
-        <!-- Tagify JS via CDN -->
-        <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
-
-        <script>
-            const input = document.querySelector('#colorTags');
-
-            // Initialize Tagify
-            const tagify = new Tagify(input, {
-                whitelist: [], // Empty to allow any color
-                dropdown: {
-                    enabled: 0
-                } // No dropdown suggestions
-            });
-
-            // Change background color of each tag
-            tagify.on('add', e => {
-                const tagElm = e.detail.tag;
-                const color = e.detail.data.value.toLowerCase();
-
-                if (isValidColor(color)) {
-                    tagElm.style.backgroundColor = color;
-                    tagElm.style.color = getContrastColor(color);
-                } else {
-                    alert("Invalid color: " + color);
-                    tagify.removeTag(e.detail.data.value);
-                }
-            });
-
-            // Check if color is valid (by applying to a dummy element)
-            function isValidColor(color) {
-                const s = new Option().style;
-                s.color = color;
-                return s.color !== '';
-            }
-
-            // Contrast text color (black/white) for readability
-            function getContrastColor(bgColor) {
-                const dummy = document.createElement("div");
-                dummy.style.color = bgColor;
-                document.body.appendChild(dummy);
-                const computed = getComputedStyle(dummy).color;
-                document.body.removeChild(dummy);
-
-                const rgb = computed.match(/\d+/g).map(Number);
-                const brightness = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
-                return brightness > 128 ? '#000' : '#fff';
-            }
-        </script>
-
+ <script>
+         @if(Session::has('message'))
+         var type = "{{ Session::get('alert-type','info') }}"
+         switch(type){
+            case 'info':
+            toastr.info(" {{ Session::get('message') }} ");
+            break;
+         
+            case 'success':
+            toastr.success(" {{ Session::get('message') }} ");
+            break;
+         
+            case 'warning':
+            toastr.warning(" {{ Session::get('message') }} ");
+            break;
+         
+            case 'error':
+            toastr.error(" {{ Session::get('message') }} ");
+            break; 
+         }
+         @endif 
+      </script>
    </body>
 </html>
