@@ -54,4 +54,6 @@ Route::prefix('product')->group(function () {
     Route::get('/all', [ProductListController::class, 'GetAllProduct'])->name('all.product');
     Route::get('/add', [ProductListController::class, 'AddProduct'])->name('add.product');
     Route::Post('/store', [ProductListController::class, 'StoreProduct'])->name('product.store');
+    Route::get('/edit-product/{id}', [ProductListController::class, 'EditProduct'])->name('product.edit');
+    Route::post('/update-product/{id}', [ProductListController::class, 'UpdateProduct'])->name('product.update');
 });

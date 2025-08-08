@@ -35,7 +35,7 @@
                         <td>{{$item->product_code}}</td>
                         <td>{{$item->category}}</td>
                         <td class="action-icons">
-                       <a href="{{route('category.edit',$item->id)}}" > <i class="fas fa-pen"></i></a>
+                       <a href="{{route('product.edit',$item->id)}}" > <i class="fas fa-pen"></i></a>
                         <a href="{{route('category.delete',$item->id)}}" id="delete"><i class="fas fa-trash"></i> </a>
                         </td>
                     </tr>
