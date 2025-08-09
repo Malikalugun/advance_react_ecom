@@ -26,4 +26,18 @@ class ContactController extends Controller
         ]);
         return $result;
     }
+    public function ContactMessage()
+    {
+        $message = Contact::latest()->paginate(10);
+        return view('backend.contact.contact_all', compact('message'));
+    }
+    public function ConatctDelete($id)
+    {
+        Contact::findOrFail($id)->delete();
+        $notification = array(
+            'message' => 'Data Deleted successfully',
+            'alert-type' => 'errro'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeSliderController;
 use App\Http\Controllers\Admin\ProductListController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Models\HomeSlider;
 use Illuminate\Support\Facades\Route;
 
@@ -57,3 +58,5 @@ Route::prefix('product')->group(function () {
     Route::get('/edit-product/{id}', [ProductListController::class, 'EditProduct'])->name('product.edit');
     Route::post('/update-product/{id}', [ProductListController::class, 'UpdateProduct'])->name('product.update');
 });
+Route::get('/contact-message', [ContactController::class, 'ContactMessage'])->name('conact.message');
+Route::get('/delete-conatct/{id}', [ContactController::class, 'ConatctDelete'])->name('contact.delete');

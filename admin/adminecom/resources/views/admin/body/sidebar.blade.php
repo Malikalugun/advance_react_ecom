@@ -72,6 +72,11 @@
          </div>
       </li>
       <li class="nav-item">
+         <a href="{{route('conact.message')}}" class="nav-link">
+            <i class="fas fa-chart-line me-2"></i> Contact Message
+         </a>
+      </li>
+      <li class="nav-item">
          <a class="nav-link" data-bs-toggle="collapse" href="#tablesMenu" role="button" aria-expanded="false" aria-controls="tablesMenu">
             <i class="fas fa-table me-2"></i> Tables
             <i class="fas fa-chevron-down ms-auto"></i>
