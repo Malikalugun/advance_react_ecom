@@ -34,4 +34,18 @@ class ProductReviewController extends Controller
         ]);
         return $result;
     }
+    public function AllReview()
+    {
+        $review = ProductReview::latest()->paginate(10);
+        return view('backend.review.review_all', compact('review'));
+    }
+    public function ReviewDelete($id)
+    {
+        ProductReview::findOrFail($id)->delete();
+        $notification = array(
+            'message' => 'Data Deleted successfully',
+            'alert-type' => 'errro'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

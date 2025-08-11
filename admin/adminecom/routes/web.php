@@ -7,6 +7,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Models\HomeSlider;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProductReviewController;
+use App\Http\Controllers\Admin\SiteController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -60,3 +62,6 @@ Route::prefix('product')->group(function () {
 });
 Route::get('/contact-message', [ContactController::class, 'ContactMessage'])->name('conact.message');
 Route::get('/delete-conatct/{id}', [ContactController::class, 'ConatctDelete'])->name('contact.delete');
+Route::get('/review', [ProductReviewController::class, 'AllReview'])->name('all.review');
+Route::get('/review-delete/{id}', [ProductReviewController::class, 'ReviewDelete'])->name('review.delete');
+Route::get('/getsite-info', [SiteController::class, 'GetSiteInfo'])->name('getsite.info');
