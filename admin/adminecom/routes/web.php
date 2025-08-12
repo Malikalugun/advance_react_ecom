@@ -65,3 +65,4 @@ Route::get('/delete-conatct/{id}', [ContactController::class, 'ConatctDelete'])-
 Route::get('/review', [ProductReviewController::class, 'AllReview'])->name('all.review');
 Route::get('/review-delete/{id}', [ProductReviewController::class, 'ReviewDelete'])->name('review.delete');
 Route::get('/getsite-info', [SiteController::class, 'GetSiteInfo'])->name('getsite.info');
+Route::post('/updatesite-info', [SiteController::class, 'UpdateSiteInfo'])->name('siteinfo.update');
